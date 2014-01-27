@@ -45,7 +45,7 @@
 
 namespace qcamera {
 
-cam_capability_t *gCamCapability[MM_CAMERA_MAX_NUM_SENSORS];
+cam_capability_t *gCamCaps[MM_CAMERA_MAX_NUM_SENSORS];
 static pthread_mutex_t g_camlock = PTHREAD_MUTEX_INITIALIZER;
 
 camera_device_ops_t QCamera2HardwareInterface::mCameraOps = {
@@ -1042,17 +1042,17 @@ int QCamera2HardwareInterface::openCamera()
     // update padding info from jpeg
     cam_padding_info_t padding_info;
     m_postprocessor.getJpegPaddingReq(padding_info);
-    if (gCamCapability[mCameraId]->padding_info.width_padding < padding_info.width_padding) {
-        gCamCapability[mCameraId]->padding_info.width_padding = padding_info.width_padding;
+    if (gCamCaps[mCameraId]->padding_info.width_padding < padding_info.width_padding) {
+        gCamCaps[mCameraId]->padding_info.width_padding = padding_info.width_padding;
     }
-    if (gCamCapability[mCameraId]->padding_info.height_padding < padding_info.height_padding) {
-        gCamCapability[mCameraId]->padding_info.height_padding = padding_info.height_padding;
+    if (gCamCaps[mCameraId]->padding_info.height_padding < padding_info.height_padding) {
+        gCamCaps[mCameraId]->padding_info.height_padding = padding_info.height_padding;
     }
-    if (gCamCapability[mCameraId]->padding_info.plane_padding < padding_info.plane_padding) {
-        gCamCapability[mCameraId]->padding_info.plane_padding = padding_info.plane_padding;
+    if (gCamCaps[mCameraId]->padding_info.plane_padding < padding_info.plane_padding) {
+        gCamCaps[mCameraId]->padding_info.plane_padding = padding_info.plane_padding;
     }
 
-    mParameters.init(gCamCapability[mCameraId], mCameraHandle);
+    mParameters.init(gCamCaps[mCameraId], mCameraHandle);
 
     rc = m_thermalAdapter.init(this);
     if (rc != 0) {
@@ -1157,12 +1157,12 @@ int QCamera2HardwareInterface::initCapabilities(int cameraId)
         ALOGE("%s: failed to query capability",__func__);
         goto query_failed;
     }
-    gCamCapability[cameraId] = (cam_capability_t *)malloc(sizeof(cam_capability_t));
-    if (!gCamCapability[cameraId]) {
+    gCamCaps[cameraId] = (cam_capability_t *)malloc(sizeof(cam_capability_t));
+    if (!gCamCaps[cameraId]) {
         ALOGE("%s: out of memory", __func__);
         goto query_failed;
     }
-    memcpy(gCamCapability[cameraId], DATA_PTR(capabilityHeap,0),
+    memcpy(gCamCaps[cameraId], DATA_PTR(capabilityHeap,0),
                                         sizeof(cam_capability_t));
 
     rc = NO_ERROR;
@@ -1199,7 +1199,7 @@ int QCamera2HardwareInterface::getCapabilities(int cameraId,
     int rc = NO_ERROR;
 
     pthread_mutex_lock(&g_camlock);
-    if (NULL == gCamCapability[cameraId]) {
+    if (NULL == gCamCaps[cameraId]) {
         rc = initCapabilities(cameraId);
         if (rc < 0) {
             pthread_mutex_unlock(&g_camlock);
@@ -1207,7 +1207,7 @@ int QCamera2HardwareInterface::getCapabilities(int cameraId,
         }
     }
 
-    switch(gCamCapability[cameraId]->position) {
+    switch(gCamCaps[cameraId]->position) {
     case CAM_POSITION_BACK:
         info->facing = CAMERA_FACING_BACK;
         break;
@@ -1222,7 +1222,10 @@ int QCamera2HardwareInterface::getCapabilities(int cameraId,
         break;
     }
 
-    info->orientation = gCamCapability[cameraId]->sensor_mount_angle;
+    info->orientation = gCamCaps[cameraId]->sensor_mount_angle;
+    info->device_version = CAMERA_DEVICE_API_VERSION_1_0;
+    info->static_camera_characteristics = NULL;
+
     pthread_mutex_unlock(&g_camlock);
     return rc;
 }
@@ -2705,7 +2708,7 @@ int32_t QCamera2HardwareInterface::addStreamToChannel(QCameraChannel *pChannel,
     rc = pChannel->addStream(*this,
                              pStreamInfo,
                              minStreamBufNum,
-                             &gCamCapability[mCameraId]->padding_info,
+                             &gCamCaps[mCameraId]->padding_info,
                              streamCB, userData);
     if (rc != NO_ERROR) {
         ALOGE("%s: add stream type (%d) failed, ret = %d",
@@ -3190,7 +3193,7 @@ QCameraReprocessChannel *QCamera2HardwareInterface::addOnlineReprocChannel(
     // pp feature config
     cam_pp_feature_config_t pp_config;
     memset(&pp_config, 0, sizeof(cam_pp_feature_config_t));
-    if (gCamCapability[mCameraId]->min_required_pp_mask & CAM_QCOM_FEATURE_SHARPNESS) {
+    if (gCamCaps[mCameraId]->min_required_pp_mask & CAM_QCOM_FEATURE_SHARPNESS) {
         pp_config.feature_mask |= CAM_QCOM_FEATURE_SHARPNESS;
         pp_config.sharpness = mParameters.getInt(QCameraParameters::KEY_QC_SHARPNESS);
     }
@@ -3224,7 +3227,7 @@ QCameraReprocessChannel *QCamera2HardwareInterface::addOnlineReprocChannel(
                                               pp_config,
                                               pInputChannel,
                                               minStreamBufNum,
-                                              &gCamCapability[mCameraId]->padding_info);
+                                              &gCamCaps[mCameraId]->padding_info);
     if (rc != NO_ERROR) {
         delete pChannel;
         return NULL;
@@ -3292,7 +3295,7 @@ QCameraReprocessChannel *QCamera2HardwareInterface::addOfflineReprocChannel(
 
     rc = pChannel->addStream(*this,
                              pStreamInfo, img_config.num_of_bufs,
-                             &gCamCapability[mCameraId]->padding_info,
+                             &gCamCaps[mCameraId]->padding_info,
                              stream_cb, userdata);
 
     if (rc != NO_ERROR) {
@@ -3809,9 +3812,9 @@ int QCamera2HardwareInterface::updateThermalLevel(
             // Set lowest min FPS for now
             adjustedRange.min_fps = minFPS/1000.0f;
             adjustedRange.max_fps = minFPS/1000.0f;
-            for ( int i = 0 ; i < gCamCapability[mCameraId]->fps_ranges_tbl_cnt ; i++ ) {
-                if ( gCamCapability[mCameraId]->fps_ranges_tbl[i].min_fps < adjustedRange.min_fps ) {
-                    adjustedRange.min_fps = gCamCapability[mCameraId]->fps_ranges_tbl[i].min_fps;
+            for ( int i = 0 ; i < gCamCaps[mCameraId]->fps_ranges_tbl_cnt ; i++ ) {
+                if ( gCamCaps[mCameraId]->fps_ranges_tbl[i].min_fps < adjustedRange.min_fps ) {
+                    adjustedRange.min_fps = gCamCaps[mCameraId]->fps_ranges_tbl[i].min_fps;
                     adjustedRange.max_fps = adjustedRange.min_fps;
                 }
             }
@@ -3938,7 +3941,7 @@ bool QCamera2HardwareInterface::needReprocess()
         return false;
     }
 
-    if (((gCamCapability[mCameraId]->min_required_pp_mask > 0) ||
+    if (((gCamCaps[mCameraId]->min_required_pp_mask > 0) ||
          mParameters.isWNREnabled() || isCACEnabled())) {
         // TODO: add for ZSL HDR later
         ALOGD("%s: need do reprocess for ZSL WNR or min PP reprocess", __func__);
@@ -3965,7 +3968,7 @@ bool QCamera2HardwareInterface::needRotationReprocess()
         return false;
     }
 
-    if ((gCamCapability[mCameraId]->qcom_supported_feature_mask & CAM_QCOM_FEATURE_ROTATION) > 0 &&
+    if ((gCamCaps[mCameraId]->qcom_supported_feature_mask & CAM_QCOM_FEATURE_ROTATION) > 0 &&
         mParameters.getJpegRotation() > 0) {
         // current rotation is not zero, and pp has the capability to process rotation
         ALOGD("%s: need do reprocess for rotation", __func__);

@@ -1000,7 +1000,7 @@ void QCamera3PicChannel::jpegEvtHandle(jpeg_job_status_t status,
         }
         //Construct payload for process_capture_result. Call mChannelCb
 
-        qcamera_jpeg_data_t *job = obj->m_postprocessor.findJpegJobByJobId(jobId);
+        qcamera_hal3_jpeg_data_t *job = obj->m_postprocessor.findJpegJobByJobId(jobId);
 
         if ((job == NULL) || (status == JPEG_JOB_STATUS_ERROR)) {
             ALOGE("%s: Error in jobId: (%d) with status: %d", __func__, jobId, status);

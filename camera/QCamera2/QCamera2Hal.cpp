@@ -27,45 +27,29 @@
 *
 */
 
-#ifndef __QCAMERA3FACTORY_H__
-#define __QCAMERA3FACTORY_H__
+#include "QCamera2Factory.h"
+#include "HAL3/QCamera3VendorTags.h"
 
-#include <hardware/camera3.h>
-
-#include "QCamera3HWI.h"
-
-namespace qcamera {
-
-class QCamera3Factory
-{
-public:
-    QCamera3Factory();
-    virtual ~QCamera3Factory();
-
-    static int get_number_of_cameras();
-    static int get_camera_info(int camera_id, struct camera_info *info);
-    static int set_callbacks(const camera_module_callbacks_t *callbacks);
-    static int open_legacy(const struct hw_module_t* module,
-            const char* id, uint32_t halVersion, struct hw_device_t** device);
-
-private:
-    int getNumberOfCameras();
-    int getCameraInfo(int camera_id, struct camera_info *info);
-    int setCallbacks(const camera_module_callbacks_t *callbacks);
-    int cameraDeviceOpen(int camera_id, struct hw_device_t **hw_device);
-    static int camera_device_open(const struct hw_module_t *module, const char *id,
-                struct hw_device_t **hw_device);
-
-public:
-    static struct hw_module_methods_t mModuleMethods;
-
-private:
-    int mNumOfCameras;
-    const camera_module_callbacks_t *mCallbacks;
+static hw_module_t camera_common = {
+    .tag = HARDWARE_MODULE_TAG,
+    .module_api_version = CAMERA_MODULE_API_VERSION_2_3,
+    .hal_api_version = HARDWARE_HAL_API_VERSION,
+    .id = CAMERA_HARDWARE_MODULE_ID,
+    .name = "QCamera Module",
+    .author = "Qualcomm Innovation Center Inc",
+    .methods = &qcamera::QCamera2Factory::mModuleMethods,
+    .dso = NULL,
+    .reserved =  {0},
 };
 
-}; /*namespace qcamera*/
-
-extern camera_module_t HAL_MODULE_INFO_SYM;
-
-#endif /* ANDROID_HARDWARE_QUALCOMM_CAMERA_H */
+camera_module_t HAL_MODULE_INFO_SYM = {
+    .common = camera_common,
+    .get_number_of_cameras = qcamera::QCamera2Factory::get_number_of_cameras,
+    .get_camera_info = qcamera::QCamera2Factory::get_camera_info,
+    .set_callbacks = qcamera::QCamera2Factory::set_callbacks,
+    .get_vendor_tag_ops = qcamera::QCamera3VendorTags::get_vendor_tag_ops,
+    .open_legacy = qcamera::QCamera2Factory::open_legacy,
+    .set_torch_mode = NULL,
+    .init = NULL,
+    .reserved = {0}
+};

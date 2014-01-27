@@ -33,8 +33,8 @@
 #include <hardware/camera.h>
 #include <hardware/power.h>
 #include <utils/Log.h>
-#include <QCameraParameters.h>
 
+#include "QCameraParameters.h"
 #include "QCameraQueue.h"
 #include "QCameraCmdThread.h"
 #include "QCameraChannel.h"

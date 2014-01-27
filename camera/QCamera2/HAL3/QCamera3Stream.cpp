@@ -236,7 +236,7 @@ int32_t QCamera3Stream::init(cam_stream_type_t streamType,
                             cam_dimension_t streamDim,
                             cam_stream_reproc_config_t* reprocess_config,
                             uint8_t minNumBuffers,
-                            stream_cb_routine stream_cb,
+                            hal3_stream_cb_routine stream_cb,
                             void *userdata)
 {
     int32_t rc = OK;

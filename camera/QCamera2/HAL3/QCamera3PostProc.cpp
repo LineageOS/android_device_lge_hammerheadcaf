@@ -379,14 +379,14 @@ int32_t QCamera3PostProcessor::processData(mm_camera_super_buf_t *frame)
         pthread_mutex_unlock(&mReprocJobLock);
     } else {
         ALOGD("%s: no need offline reprocess, sending to jpeg encoding", __func__);
-        qcamera_jpeg_data_t *jpeg_job =
-            (qcamera_jpeg_data_t *)malloc(sizeof(qcamera_jpeg_data_t));
+        qcamera_hal3_jpeg_data_t *jpeg_job =
+            (qcamera_hal3_jpeg_data_t *)malloc(sizeof(qcamera_hal3_jpeg_data_t));
         if (jpeg_job == NULL) {
             ALOGE("%s: No memory for jpeg job", __func__);
             return NO_MEMORY;
         }
 
-        memset(jpeg_job, 0, sizeof(qcamera_jpeg_data_t));
+        memset(jpeg_job, 0, sizeof(qcamera_hal3_jpeg_data_t));
         jpeg_job->src_frame = frame;
 
         // enqueu to jpeg input queue
@@ -484,7 +484,7 @@ int32_t QCamera3PostProcessor::processRawData(mm_camera_super_buf_t *frame)
  *==========================================================================*/
 int32_t QCamera3PostProcessor::processPPData(mm_camera_super_buf_t *frame)
 {
-    qcamera_pp_data_t *job = (qcamera_pp_data_t *)m_ongoingPPQ.dequeue();
+    qcamera_hal3_jpeg_data_t *job = (qcamera_hal3_jpeg_data_t *)m_ongoingPPQ.dequeue();
     jpeg_settings_t *jpeg_settings = (jpeg_settings_t *)m_jpegSettingsQ.dequeue();
 
     if (job == NULL || job->src_frame == NULL) {
@@ -496,14 +496,14 @@ int32_t QCamera3PostProcessor::processPPData(mm_camera_super_buf_t *frame)
         return BAD_VALUE;
     }
 
-    qcamera_jpeg_data_t *jpeg_job =
-        (qcamera_jpeg_data_t *)malloc(sizeof(qcamera_jpeg_data_t));
+    qcamera_hal3_jpeg_data_t *jpeg_job =
+        (qcamera_hal3_jpeg_data_t *)malloc(sizeof(qcamera_hal3_jpeg_data_t));
     if (jpeg_job == NULL) {
         ALOGE("%s: No memory for jpeg job", __func__);
         return NO_MEMORY;
     }
 
-    memset(jpeg_job, 0, sizeof(qcamera_jpeg_data_t));
+    memset(jpeg_job, 0, sizeof(qcamera_hal3_jpeg_data_t));
     jpeg_job->src_frame = frame;
     jpeg_job->src_reproc_frame = job->src_frame;
     jpeg_job->metadata = job->metadata;
@@ -535,16 +535,16 @@ int32_t QCamera3PostProcessor::processPPData(mm_camera_super_buf_t *frame)
  *              encoding. Therefore simply dequeue from the ongoing Jpeg Queue
  *              will serve the purpose to find the jpeg job.
  *==========================================================================*/
-qcamera_jpeg_data_t *QCamera3PostProcessor::findJpegJobByJobId(uint32_t jobId)
+qcamera_hal3_jpeg_data_t *QCamera3PostProcessor::findJpegJobByJobId(uint32_t jobId)
 {
-    qcamera_jpeg_data_t * job = NULL;
+    qcamera_hal3_jpeg_data_t * job = NULL;
     if (jobId == 0) {
         ALOGE("%s: not a valid jpeg jobId", __func__);
         return NULL;
     }
 
     // currely only one jpeg job ongoing, so simply dequeue the head
-    job = (qcamera_jpeg_data_t *)m_ongoingJpegQ.dequeue();
+    job = (qcamera_hal3_jpeg_data_t *)m_ongoingJpegQ.dequeue();
     return job;
 }
 
@@ -618,7 +618,7 @@ void QCamera3PostProcessor::releaseJpegData(void *data, void *user_data)
 {
     QCamera3PostProcessor *pme = (QCamera3PostProcessor *)user_data;
     if (NULL != pme) {
-        pme->releaseJpegJobData((qcamera_jpeg_data_t *)data);
+        pme->releaseJpegJobData((qcamera_hal3_jpeg_data_t *)data);
     }
 }
 
@@ -637,7 +637,7 @@ void QCamera3PostProcessor::releaseOngoingPPData(void *data, void *user_data)
 {
     QCamera3PostProcessor *pme = (QCamera3PostProcessor *)user_data;
     if (NULL != pme) {
-        qcamera_pp_data_t *pp_job = (qcamera_pp_data_t *)data;
+        qcamera_hal3_jpeg_data_t *pp_job = (qcamera_hal3_jpeg_data_t *)data;
         if (NULL != pp_job->src_frame) {
             pme->releaseSuperBuf(pp_job->src_frame);
             free(pp_job->src_frame);
@@ -681,7 +681,7 @@ void QCamera3PostProcessor::releaseSuperBuf(mm_camera_super_buf_t *super_buf)
  *              future use. Output buf of jpeg job need to be released since
  *              it's allocated for each job. Exif object need to be deleted.
  *==========================================================================*/
-void QCamera3PostProcessor::releaseJpegJobData(qcamera_jpeg_data_t *job)
+void QCamera3PostProcessor::releaseJpegJobData(qcamera_hal3_jpeg_data_t *job)
 {
     ALOGV("%s: E", __func__);
     if (NULL != job) {
@@ -778,7 +778,7 @@ mm_jpeg_format_t QCamera3PostProcessor::getJpegImgTypeFromImgFmt(cam_format_t im
  *              NO_ERROR  -- success
  *              none-zero failure code
  *==========================================================================*/
-int32_t QCamera3PostProcessor::encodeData(qcamera_jpeg_data_t *jpeg_job_data,
+int32_t QCamera3PostProcessor::encodeData(qcamera_hal3_jpeg_data_t *jpeg_job_data,
                           uint8_t &needNewSess)
 {
     ALOGV("%s : E", __func__);
@@ -1049,15 +1049,15 @@ void *QCamera3PostProcessor::dataProcessRoutine(void *data)
                 is_active = FALSE;
 
                 // cancel all ongoing jpeg jobs
-                qcamera_jpeg_data_t *jpeg_job =
-                    (qcamera_jpeg_data_t *)pme->m_ongoingJpegQ.dequeue();
+                qcamera_hal3_jpeg_data_t *jpeg_job =
+                    (qcamera_hal3_jpeg_data_t *)pme->m_ongoingJpegQ.dequeue();
                 while (jpeg_job != NULL) {
                     pme->mJpegHandle.abort_job(jpeg_job->jobId);
 
                     pme->releaseJpegJobData(jpeg_job);
                     free(jpeg_job);
 
-                    jpeg_job = (qcamera_jpeg_data_t *)pme->m_ongoingJpegQ.dequeue();
+                    jpeg_job = (qcamera_hal3_jpeg_data_t *)pme->m_ongoingJpegQ.dequeue();
                 }
 
                 // destroy jpeg encoding session
@@ -1099,8 +1099,8 @@ void *QCamera3PostProcessor::dataProcessRoutine(void *data)
                     if (pme->m_ongoingJpegQ.isEmpty()) {
                        ALOGI("%s: ongoing jpeg queue is empty so doing the jpeg job", __func__);
                         // no ongoing jpeg job, we are fine to send jpeg encoding job
-                        qcamera_jpeg_data_t *jpeg_job =
-                            (qcamera_jpeg_data_t *)pme->m_inputJpegQ.dequeue();
+                        qcamera_hal3_jpeg_data_t *jpeg_job =
+                            (qcamera_hal3_jpeg_data_t *)pme->m_inputJpegQ.dequeue();
 
                         if (NULL != jpeg_job) {
                             // add into ongoing jpeg job Q
@@ -1121,10 +1121,10 @@ void *QCamera3PostProcessor::dataProcessRoutine(void *data)
                     meta_buffer =
                         (metadata_buffer_t *)pme->m_inputMetaQ.dequeue();
                     if (NULL != pp_frame && NULL != meta_buffer) {
-                        qcamera_pp_data_t *pp_job =
-                            (qcamera_pp_data_t *)malloc(sizeof(qcamera_pp_data_t));
+                        qcamera_hal3_jpeg_data_t *pp_job =
+                            (qcamera_hal3_jpeg_data_t *)malloc(sizeof(qcamera_hal3_jpeg_data_t));
                         if (pp_job != NULL) {
-                            memset(pp_job, 0, sizeof(qcamera_pp_data_t));
+                            memset(pp_job, 0, sizeof(qcamera_hal3_jpeg_data_t));
                             if (pme->m_pReprocChannel != NULL) {
                                 // add into ongoing PP job Q
                                 pp_job->src_frame = pp_frame;
@@ -1140,7 +1140,7 @@ void *QCamera3PostProcessor::dataProcessRoutine(void *data)
                                 ret = -1;
                             }
                         } else {
-                            ALOGE("%s: no mem for qcamera_pp_data_t", __func__);
+                            ALOGE("%s: no mem for qcamera_hal3_jpeg_data_t", __func__);
                             ret = -1;
                         }
 
@@ -1159,8 +1159,8 @@ void *QCamera3PostProcessor::dataProcessRoutine(void *data)
                 } else {
                     // not active, simply return buf and do no op
                     mm_camera_super_buf_t *super_buf;
-                    qcamera_jpeg_data_t *jpeg_job =
-                        (qcamera_jpeg_data_t *)pme->m_inputJpegQ.dequeue();
+                    qcamera_hal3_jpeg_data_t *jpeg_job =
+                        (qcamera_hal3_jpeg_data_t *)pme->m_inputJpegQ.dequeue();
                     if (NULL != jpeg_job) {
                         free(jpeg_job);
                     }
@@ -1319,7 +1319,7 @@ int32_t QCamera3Exif::addEntry(exif_tag_id_t tagid,
                               void *data)
 {
     int32_t rc = NO_ERROR;
-    if(m_nNumEntries >= MAX_EXIF_TABLE_ENTRIES) {
+    if(m_nNumEntries >= MAX_HAL3_EXIF_TABLE_ENTRIES) {
         ALOGE("%s: Number of entries exceeded limit", __func__);
         return NO_MEMORY;
     }
