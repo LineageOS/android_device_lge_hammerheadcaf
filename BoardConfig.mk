@@ -128,16 +128,17 @@ TARGET_RELEASETOOLS_EXTENSIONS := device/lge/hammerhead
 
 BOARD_HAL_STATIC_LIBRARIES := libdumpstate.hammerhead
 
-BOARD_SEPOLICY_DIRS += \
-       device/lge/hammerhead/sepolicy
-
 # Define kernel config for inline building
 TARGET_KERNEL_CONFIG := cyanogenmod_hammerhead_defconfig
 TARGET_KERNEL_SOURCE := kernel/lge/hammerhead
 
+BOARD_SEPOLICY_DIRS += \
+       device/lge/hammerhead/sepolicy
+
 # The list below is order dependent
 BOARD_SEPOLICY_UNION += \
        app.te \
+       bluetooth.te \
        bluetooth_loader.te \
        bridge.te \
        camera.te \
