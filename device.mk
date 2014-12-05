@@ -126,13 +126,13 @@ PRODUCT_PACKAGES += \
     LiveWallpapersPicker \
     librs_jni
 
+# Graphics
 PRODUCT_PACKAGES += \
+    copybit.msm8974 \
     gralloc.msm8974 \
-    libgenlock \
     hwcomposer.msm8974 \
     memtrack.msm8974 \
-    libqdutils \
-    libqdMetaData
+    liboverlay
 
 PRODUCT_PACKAGES += \
     libc2dcolorconvert \
