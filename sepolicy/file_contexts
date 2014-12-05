@@ -105,6 +105,7 @@
 
 # rmt_storage is a qualcomm specific daemon responsible
 # for servicing modem filesystem requests.
+/system/bin/audiod                 u:object_r:audiod_exec:s0
 /system/bin/rmt_storage            u:object_r:rmt_exec:s0
 /system/bin/bdAddrLoader           u:object_r:bluetooth_loader_exec:s0
 /system/bin/bridgemgrd             u:object_r:bridge_exec:s0

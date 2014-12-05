@@ -143,13 +143,28 @@ PRODUCT_PACKAGES += \
     libOmxVdecHevc \
     libOmxVenc
 
+# Audio
 PRODUCT_PACKAGES += \
+    audiod \
+    audio_policy.msm8974 \
     audio.primary.msm8974 \
     audio.a2dp.default \
     audio.usb.default \
     audio.r_submix.default \
     libaudio-resampler \
     tinymix
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    media.aac_51_output_enabled=true \
+    mm.enable.qcom_parser=3314291 \
+    ro.qc.sdk.audio.fluencetype=fluence \
+    persist.audio.fluence.voicecall=true \
+    audio.offload.buffer.size.kb=32 \
+    audio.offload.gapless.enabled=true \
+    av.offload.enable=true \
+    av.streaming.offload.enable=true \
+    audio.offload.pcm.enable=true \
+    tunnel.audio.encode=true
 
 # Audio effects
 PRODUCT_PACKAGES += \
@@ -283,10 +298,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     wifi.interface=wlan0 \
     wifi.supplicant_scan_interval=15
 
-# Enable AAC 5.1 output
-PRODUCT_PROPERTY_OVERRIDES += \
-    media.aac_51_output_enabled=true
-
 # Do not power down SIM card when modem is sent to Low Power Mode.
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.radio.apm_sim_not_pwdn=1
@@ -309,15 +320,6 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 # If data_no_toggle is 0 there are no reports if the screen is off.
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.radio.data_no_toggle=1
-
-# Audio Configuration
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.audio.handset.mic.type=digital \
-    persist.audio.dualmic.config=endfire \
-    persist.audio.fluence.voicecall=true \
-    persist.audio.fluence.voicecomm=true \
-    persist.audio.fluence.voicerec=false \
-    persist.audio.fluence.speaker=false
 
 # Setup custom emergency number list based on the MCC. This is needed by RIL
 PRODUCT_PROPERTY_OVERRIDES += \
