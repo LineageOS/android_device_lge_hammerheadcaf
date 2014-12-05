@@ -146,7 +146,6 @@
 /system/vendor/lib/egl/libEGL_adreno.so
 /system/vendor/lib/egl/libGLESv1_CM_adreno.so
 /system/vendor/lib/egl/libGLESv2_adreno.so
-/system/vendor/lib/egl/libplayback_adreno.so
 /system/vendor/lib/egl/libq3dtools_adreno.so
 /system/vendor/lib/hw/sensors.msm8974.so
 /system/vendor/lib/libacdbloader.so
@@ -197,6 +196,7 @@
 /system/vendor/lib/libmmqjpeg_codec.so
 /system/vendor/lib/libnetmgr.so
 /system/vendor/lib/liboemcamera.so
+/system/vendor/lib/libOpenCL.so
 /system/vendor/lib/libqcci_legacy.so
 /system/vendor/lib/libqc-opt.so
 /system/vendor/lib/libqdi.so
@@ -215,6 +215,7 @@
 /system/vendor/lib/librs_adreno.so
 /system/vendor/lib/libRSDriver_adreno.so
 /system/vendor/lib/libsc-a3xx.so
+/system/vendor/lib/libscale.so
 /system/vendor/lib/libsensor1.so
 /system/vendor/lib/libsensor_reg.so
 /system/vendor/lib/libsensor_user_cal.so
