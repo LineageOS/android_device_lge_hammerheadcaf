@@ -79,6 +79,10 @@
 /dev/msm_amrnb.*                   u:object_r:audio_device:s0
 /dev/msm_amrwb.*                   u:object_r:audio_device:s0
 /dev/msm_aac.*                     u:object_r:audio_device:s0
+/dev/msm_wma.*                     u:object_r:audio_device:s0
+/dev/msm_evrc.*                    u:object_r:audio_device:s0
+/dev/msm_multi.*                   u:object_r:audio_device:s0
+/dev/msm_qcelp.*                   u:object_r:audio_device:s0
 
 # MSM Dedicated Sensors Processor Subsystem
 /dev/msm_dsps                          u:object_r:sensors_device:s0
