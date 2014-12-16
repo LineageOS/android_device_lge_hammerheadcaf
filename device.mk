@@ -167,7 +167,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     audio.offload.gapless.enabled=true \
     av.offload.enable=true \
     av.streaming.offload.enable=true \
-    audio.offload.pcm.enable=true \
+    audio.offload.pcm.16bit.enable=true \
+    audio.offload.pcm.24bit.enable=true \
     tunnel.audio.encode=true
 
 # Audio effects
