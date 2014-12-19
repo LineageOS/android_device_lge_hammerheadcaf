@@ -19,6 +19,7 @@
 #include <math.h>
 #include "hwc_mdpcomp.h"
 #include <sys/ioctl.h>
+#include <dlfcn.h>
 #include "hdmi.h"
 #include "virtual.h"
 #include "qdMetaData.h"
@@ -45,6 +46,11 @@ bool MDPComp::sEnableMixedMode = true;
 bool MDPComp::sEnablePartialFrameUpdate = false;
 int MDPComp::sMaxPipesPerMixer = MAX_PIPES_PER_MIXER;
 bool MDPComp::sEnable4k2kYUVSplit = false;
+void *MDPComp::sLibPerfHint = NULL;
+int MDPComp::sPerfLockHandle = 0;
+int (*MDPComp::sPerfLockAcquire)(int, int, int*, int) = NULL;
+int (*MDPComp::sPerfLockRelease)(int value) = NULL;
+int MDPComp::sPerfHintWindow = -1;
 
 MDPComp* MDPComp::getObject(hwc_context_t *ctx, const int& dpy) {
     if(isDisplaySplit(ctx, dpy)) {
@@ -163,6 +169,14 @@ bool MDPComp::init(hwc_context_t *ctx) {
              (!strncmp(property, "1", PROPERTY_VALUE_MAX )))) {
         ctx->mCopyBit[HWC_DISPLAY_PRIMARY] = new CopyBit(ctx,
                                                     HWC_DISPLAY_PRIMARY);
+    }
+
+    if(property_get("persist.mdpcomp_perfhint", property, "-1") > 0) {
+        int val = atoi(property);
+        if(val > 0 && loadPerfLib()) {
+            sPerfHintWindow = val;
+            ALOGI("PerfHintWindow = %d", sPerfHintWindow);
+        }
     }
 
     return true;
@@ -1511,25 +1525,38 @@ bool MDPComp::hwLimitationsCheck(hwc_context_t* ctx,
     return true;
 }
 
+// Checks only if videos or single layer(RGB) is updating
+// which is used for setting dynamic fps or perf hint for single
+// layer video playback
+bool MDPComp::onlyVideosUpdating(hwc_context_t *ctx,
+                                hwc_display_contents_1_t* list) {
+    bool support = false;
+    FrameInfo frame;
+    frame.reset(mCurrentFrame.layerCount);
+    memset(&frame.drop, 0, sizeof(frame.drop));
+    frame.dropCount = 0;
+    ALOGD_IF(isDebug(), "%s: Update Cache and YUVInfo", __FUNCTION__);
+    updateLayerCache(ctx, list, frame);
+    updateYUV(ctx, list, false /*secure only*/, frame);
+    // There are only updating YUV layers or there is single RGB
+    // Layer(Youtube)
+    if((ctx->listStats[mDpy].yuvCount == frame.mdpCount) ||
+                                        (frame.layerCount == 1)) {
+        support = true;
+    }
+    return support;
+}
+
 void MDPComp::setDynRefreshRate(hwc_context_t *ctx, hwc_display_contents_1_t* list) {
     //For primary display, set the dynamic refreshrate
     if(!mDpy && qdutils::MDPVersion::getInstance().isDynFpsSupported() &&
                                         ctx->mUseMetaDataRefreshRate) {
-        FrameInfo frame;
-        frame.reset(mCurrentFrame.layerCount);
-        memset(&frame.drop, 0, sizeof(frame.drop));
-        frame.dropCount = 0;
-        ALOGD_IF(isDebug(), "%s: Update Cache and YUVInfo for Dyn Refresh Rate",
-                 __FUNCTION__);
-        updateLayerCache(ctx, list, frame);
-        updateYUV(ctx, list, false /*secure only*/, frame);
         uint32_t refreshRate = ctx->dpyAttr[mDpy].refreshRate;
         MDPVersion& mdpHw = MDPVersion::getInstance();
         if(sIdleFallBack) {
             //Set minimum panel refresh rate during idle timeout
             refreshRate = mdpHw.getMinFpsSupported();
-        } else if((ctx->listStats[mDpy].yuvCount == frame.mdpCount) ||
-                                (frame.layerCount == 1)) {
+        } else if(onlyVideosUpdating(ctx, list)) {
             //Set the new fresh rate, if there is only one updating YUV layer
             //or there is one single RGB layer with this request
             refreshRate = ctx->listStats[mDpy].refreshRateRequest;
@@ -1629,6 +1656,7 @@ int MDPComp::prepare(hwc_context_t *ctx, hwc_display_contents_1_t* list) {
 #ifdef DYNAMIC_FPS
     setDynRefreshRate(ctx, list);
 #endif
+    setPerfHint(ctx, list);
 
     mCachedFrame.updateCounts(mCurrentFrame);
     return ret;
@@ -2169,5 +2197,66 @@ bool MDPCompSplit::draw(hwc_context_t *ctx, hwc_display_contents_1_t* list) {
 
     return true;
 }
+
+bool MDPComp::loadPerfLib() {
+    char perfLibPath[PROPERTY_VALUE_MAX] = {0};
+    bool success = false;
+    if((property_get("ro.vendor.extension_library", perfLibPath, NULL) <= 0)) {
+        ALOGE("vendor library not set in ro.vendor.extension_library");
+        return false;
+    }
+
+    sLibPerfHint = dlopen(perfLibPath, RTLD_NOW);
+    if(sLibPerfHint) {
+        *(void **)&sPerfLockAcquire = dlsym(sLibPerfHint, "perf_lock_acq");
+        *(void **)&sPerfLockRelease = dlsym(sLibPerfHint, "perf_lock_rel");
+        if (!sPerfLockAcquire || !sPerfLockRelease) {
+            ALOGE("Failed to load symbols for perfLock");
+            dlclose(sLibPerfHint);
+            sLibPerfHint = NULL;
+            return false;
+        }
+        success = true;
+        ALOGI("Successfully Loaded perf hint API's");
+    } else {
+        ALOGE("Failed to open %s : %s", perfLibPath, dlerror());
+    }
+    return success;
+}
+
+void MDPComp::setPerfHint(hwc_context_t *ctx, hwc_display_contents_1_t* list) {
+    if ((sPerfHintWindow < 0) || mDpy || !sLibPerfHint) {
+        return;
+    }
+    static int count = sPerfHintWindow;
+    static int perflockFlag = 0;
+
+    /* Send hint to mpctl when single layer is updated
+     * for a successful number of windows. Hint release
+     * happens immediately upon multiple layer update.
+     */
+    if (onlyVideosUpdating(ctx, list)) {
+        if(count) {
+            count--;
+        }
+    } else {
+        if (perflockFlag) {
+            perflockFlag = 0;
+            sPerfLockRelease(sPerfLockHandle);
+        }
+        count = sPerfHintWindow;
+    }
+    if (count == 0 && !perflockFlag) {
+        int perfHint = 0x4501; // 45-display layer hint, 01-Enable
+        sPerfLockHandle = sPerfLockAcquire(0 /*handle*/, 0/*duration*/,
+                                    &perfHint, sizeof(perfHint)/sizeof(int));
+        if(sPerfLockHandle < 0) {
+            ALOGE("Perf Lock Acquire Failed");
+        } else {
+            perflockFlag = 1;
+        }
+    }
+}
+
 }; //namespace
 

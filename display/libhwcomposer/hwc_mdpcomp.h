@@ -223,6 +223,10 @@ protected:
     bool isSupportedForMDPComp(hwc_context_t *ctx, hwc_layer_1_t* layer);
     bool resourceCheck(hwc_context_t *ctx, hwc_display_contents_1_t *list);
     bool canDoPartialUpdate(hwc_context_t *ctx, hwc_display_contents_1_t* list);
+    // Checks if only videocontent is updating
+    bool onlyVideosUpdating(hwc_context_t *ctx, hwc_display_contents_1_t* list);
+    static bool loadPerfLib();
+    void setPerfHint(hwc_context_t *ctx, hwc_display_contents_1_t* list);
 
     int mDpy;
     static bool sEnabled;
@@ -241,6 +245,11 @@ protected:
             hwc_display_contents_1_t* list, int index);
     bool mModeOn; // if prepare happened
     bool mPrevModeOn; //if previous prepare happened
+    static void *sLibPerfHint;
+    static int sPerfLockHandle;
+    static int (*sPerfLockAcquire)(int, int, int*, int);
+    static int (*sPerfLockRelease)(int value);
+    static int sPerfHintWindow;
 };
 
 class MDPCompNonSplit : public MDPComp {
