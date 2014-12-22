@@ -72,14 +72,16 @@ DEVICE_PACKAGE_OVERLAYS := vendor/$VENDOR/$DEVICE/overlay
 
 # Apps
 PRODUCT_PACKAGES += \\
+    PPPreference \\
     qcrilmsgtunnel \\
     shutdownlistener \\
     TimeService \\
     UpdateSetting
 
-# Media
+# Libs
 PRODUCT_PACKAGES += \\
-    libHevcSwDecoder
+    libHevcSwDecoder \\
+    libmm-abl
 
 \$(call inherit-product, vendor/$VENDOR/$DEVICE/$DEVICE-vendor-blobs.mk)
 EOF
@@ -126,6 +128,17 @@ LOCAL_PATH := \$(call my-dir)
 ifeq (\$(TARGET_DEVICE),hammerhead)
 
 include \$(CLEAR_VARS)
+LOCAL_MODULE := libmm-abl
+LOCAL_MODULE_OWNER := $VENDOR
+LOCAL_SRC_FILES := vendor/lib/\$(LOCAL_MODULE).so
+LOCAL_MODULE_CLASS := SHARED_LIBRARIES
+LOCAL_MODULE_TAGS := optional
+LOCAL_CERTIFICATE := platform
+LOCAL_MODULE_PATH := \$(TARGET_OUT_VENDOR_SHARED_LIBRARIES)
+LOCAL_MODULE_SUFFIX := .so
+include \$(BUILD_PREBUILT)
+
+include \$(CLEAR_VARS)
 LOCAL_MODULE := libHevcSwDecoder
 LOCAL_MODULE_OWNER := $VENDOR
 LOCAL_SRC_FILES := vendor/lib/\$(LOCAL_MODULE).so
@@ -134,6 +147,16 @@ LOCAL_MODULE_TAGS := optional
 LOCAL_CERTIFICATE := platform
 LOCAL_MODULE_PATH := \$(TARGET_OUT_VENDOR_SHARED_LIBRARIES)
 LOCAL_MODULE_SUFFIX := .so
+include \$(BUILD_PREBUILT)
+
+include \$(CLEAR_VARS)
+LOCAL_MODULE := PPPreference
+LOCAL_MODULE_OWNER := $VENDOR
+LOCAL_SRC_FILES := app/\$(LOCAL_MODULE)/\$(LOCAL_MODULE).apk
+LOCAL_MODULE_CLASS := APPS
+LOCAL_MODULE_TAGS := optional
+LOCAL_CERTIFICATE := platform
+LOCAL_MODULE_SUFFIX := \$(COMMON_ANDROID_PACKAGE_SUFFIX)
 include \$(BUILD_PREBUILT)
 
 include \$(CLEAR_VARS)
