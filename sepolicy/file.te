@@ -5,6 +5,7 @@ type qmuxd_socket, file_type;
 type sensors_socket, file_type;
 type camera_socket, file_type;
 type thermald_socket, file_type;
+type pps_socket, file_type;
 
 type diag_logs, file_type, data_file_type;
 type sensors_data_file, file_type, data_file_type;
@@ -31,3 +32,7 @@ type sysfs_hardware, fs_type, sysfs_type;
 
 # File type for restricting proc read by audiod
 type proc_audiod, fs_type;
+
+# Define the files written during the operation of mm-pp-daemon
+type display_config, file_type, data_file_type;
+type data_ad_calib_cfg, file_type, data_file_type;

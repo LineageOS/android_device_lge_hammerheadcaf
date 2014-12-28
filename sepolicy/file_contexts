@@ -94,6 +94,8 @@
 # Sensor socket
 /dev/socket/sensor_ctl_socket          u:object_r:sensors_socket:s0
 
+/dev/socket/pps                        u:object_r:pps_socket:s0
+
 /dev/cpu_dma_latency               u:object_r:power_control_device:s0
 /dev/rtc0                          u:object_r:rtc:s0
 
@@ -116,6 +118,7 @@
 /system/bin/bridgemgrd             u:object_r:bridge_exec:s0
 /system/bin/qmuxd                  u:object_r:qmux_exec:s0
 /system/bin/netmgrd                u:object_r:netmgrd_exec:s0
+/system/bin/mm-pp-daemon           u:object_r:mm-pp-daemon_exec:s0
 /system/bin/mpdecision             u:object_r:mpdecision_exec:s0
 /system/bin/sensors\.qcom           u:object_r:sensors_exec:s0
 /system/bin/mm-qcamera-daemon      u:object_r:camera_exec:s0

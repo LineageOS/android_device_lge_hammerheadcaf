@@ -138,6 +138,7 @@ BOARD_SEPOLICY_UNION += \
        hostapd.te \
        irsc_util.te \
        mediaserver.te \
+       mm-pp-daemon.te \
        mpdecision.te \
        netmgrd.te \
        platform_app.te \
