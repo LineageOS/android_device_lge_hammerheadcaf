@@ -83,7 +83,6 @@
 /system/lib/libmmQSM.so
 /system/lib/liboemcrypto.so
 /system/lib/libril-qc-qmi-1.so
-/system/lib/librpmb.so
 /system/lib/libssd.so
 /system/lib/libstagefright_hdcp.so
 /system/lib/libxml.so
@@ -225,6 +224,7 @@
 /system/vendor/lib/libqomx_jpegenc.so
 /system/vendor/lib/libQSEEComAPI.so
 /system/vendor/lib/libril-qcril-hook-oem.so
+/system/vendor/lib/librpmb.so
 /system/vendor/lib/librs_adreno_sha1.so
 /system/vendor/lib/librs_adreno.so
 /system/vendor/lib/libRSDriver_adreno.so
