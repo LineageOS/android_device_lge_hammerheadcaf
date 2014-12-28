@@ -1,4 +1,0 @@
-allow surfaceflinger sysfs_surfaceflinger:file rw_file_perms;
-
-allow surfaceflinger mm-pp-daemon:dir search;
-allow surfaceflinger mm-pp-daemon:file r_file_perms;

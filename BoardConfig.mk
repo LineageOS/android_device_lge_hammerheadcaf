@@ -130,40 +130,33 @@ BOARD_SEPOLICY_DIRS += \
 
 BOARD_SEPOLICY_UNION += \
        app.te \
-       audiod.te \
        bluetooth.te \
        bluetooth_loader.te \
        bridge.te \
-       camera.te \
-       device.te \
        domain.te \
        file.te \
        healthd.te \
        hostapd.te \
-       irsc_util.te \
        mediaserver.te \
+       mm-qcamerad.te \
        mm-pp-daemon.te \
        mpdecision.te \
        netmgrd.te \
        platform_app.te \
-       qmux.te \
-       radio.te \
+       qmuxd.te \
+       qseecomd.te \
        rild.te \
-       rmt.te \
+       rmt_storage.te \
        sensors.te \
-       ssr.te \
-       surfaceflinger.te \
+       subsystem_ramdump.te \
        system_app.te \
        system_server.te \
-       tee.te \
-       thermald.te \
-       time.te \
+       thermal-engine.te \
        ueventd.te \
        vss.te \
        wpa.te \
        file_contexts \
-       genfs_contexts \
-       te_macros
+       genfs_contexts
 
 HAVE_ADRENO_SOURCE:= false
 
