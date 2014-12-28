@@ -120,10 +120,14 @@ BOARD_HAL_STATIC_LIBRARIES := libdumpstate.hammerhead
 TARGET_KERNEL_CONFIG := cyanogenmod_hammerhead_defconfig
 TARGET_KERNEL_SOURCE := kernel/lge/hammerhead
 
+# SELinux policies
+# QCOM
+include device/qcom/sepolicy/sepolicy.mk
+
+# Board
 BOARD_SEPOLICY_DIRS += \
        device/lge/hammerhead/sepolicy
 
-# The list below is order dependent
 BOARD_SEPOLICY_UNION += \
        app.te \
        audiod.te \
