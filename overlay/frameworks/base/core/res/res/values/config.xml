@@ -297,4 +297,8 @@
         <item>hsupa:4094,87380,704512,4096,16384,110208</item>
     </string-array>
 
+    <!-- Performance profiles -->
+    <string name="config_perf_profile_prop">powerhal</string>
+    <string name="config_perf_profile_default_entry">1</string>
+
 </resources>
