@@ -96,6 +96,8 @@ on property:init.svc.bootanim=stopped
     write /sys/devices/system/cpu/cpufreq/interactive/timer_rate 30000
     write /sys/devices/system/cpu/cpufreq/interactive/max_freq_hysteresis 100000
     write /sys/devices/system/cpu/cpufreq/interactive/timer_slack 30000
+
+    # sched
     write /dev/cpuctl/cpu.notify_on_migrate 1
 
     # cpu-boost
@@ -104,7 +106,10 @@ on property:init.svc.bootanim=stopped
     write /sys/module/cpu_boost/parameters/input_boost_freq 1497600
     write /sys/module/cpu_boost/parameters/input_boost_ms 500
 
-    # scheduler
+    # devfreq
+    write /sys/class/devfreq/qcom,cpubw.41/governor cpubw_hwmon
+
+    # io scheduler
     write /sys/block/mmcblk0/queue/scheduler row
 
     start mpdecision
