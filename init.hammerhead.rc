@@ -370,7 +370,7 @@ service mpdecision /system/bin/mpdecision --avg_comp
 service ssr_ramdump /system/bin/subsystem_ramdump -m -t emmc
     class main
     user root
-    group root
+    group root system
     disabled
 
 service thermal-engine /system/bin/thermal-engine-hh
