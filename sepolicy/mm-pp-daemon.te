@@ -1,2 +1,2 @@
-allow mm-pp-daemon data_ad_calib_cfg:file rw_file_perms;
+allow mm-pp-daemon data_ad_calib_cfg:file create_file_perms;
 allow mm-pp-daemon data_ad_calib_cfg:dir rw_dir_perms;
