@@ -156,6 +156,7 @@ BOARD_SEPOLICY_UNION += \
        thermal-engine.te \
        ueventd.te \
        untrusted_app.te \
+       vold.te \
        vss.te \
        wpa.te \
        file_contexts \
