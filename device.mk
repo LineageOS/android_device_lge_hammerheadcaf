@@ -294,6 +294,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.qti.sensors.step_detector=true \
     ro.qti.sensors.step_counter=true
 
+# Doze mode
+PRODUCT_PACKAGES += \
+    HammerheadDoze
+
 # Enable some debug messages by default
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.debug.sensors.hal=w \
