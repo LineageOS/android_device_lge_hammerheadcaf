@@ -147,6 +147,7 @@ BOARD_SEPOLICY_UNION += \
        platform_app.te \
        qmuxd.te \
        qseecomd.te \
+       radio.te \
        rild.te \
        rmt_storage.te \
        sensors.te \

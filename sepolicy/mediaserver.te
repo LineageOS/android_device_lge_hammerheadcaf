@@ -1,1 +1,2 @@
 allow mediaserver mpdecision:unix_stream_socket connectto;
+allow mediaserver camera_device:dir search;

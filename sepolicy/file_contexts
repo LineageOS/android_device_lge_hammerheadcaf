@@ -15,6 +15,11 @@
 /dev/ttyUSB0                                                        u:object_r:radio_device:s0
 /dev/gemini.*                                                       u:object_r:camera_device:s0
 /dev/smd_sns_dsps                                                   u:object_r:sensors_device:s0
+/dev/smdcntl[0-9]                                                   u:object_r:radio_device:s0
+/dev/smd([0-9])+                                                    u:object_r:smd_device:s0
+/dev/smd_sns_.*                                                     u:object_r:sensors_device:s0
+#/dev/video([0-9])+                                                  u:object_r:camera_device:s0
+/dev/video.*                                                        u:object_r:camera_device:s0
 
 ###################################
 # System files
@@ -30,7 +35,7 @@
 /sys/class/android_usb/f_rmnet_smd_sdio/transport                    -- u:object_r:sysfs_rmnet:s0
 /sys/devices/virtual/android_usb/android0/f_rmnet_smd_sdio/transport -- u:object_r:sysfs_rmnet:s0
 /sys/devices/platform/bluetooth_rfkill/rfkill/rfkill0/state          -- u:object_r:sysfs_bluetooth_writable:s0
-/sys/devices/platform/kcal_ctrl.0/kcal                               -- u:object_r:sysfs_hardware:s0
+/sys/devices/platform/kcal_ctrl\.0/kcal                              -- u:object_r:sysfs_hardware:s0
 /sys/class/timed_output/vibrator/amp                                 -- u:object_r:sysfs_hardware:s0
 
 ###################################
