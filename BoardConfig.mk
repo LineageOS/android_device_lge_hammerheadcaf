@@ -141,7 +141,6 @@ BOARD_SEPOLICY_UNION += \
        hostapd.te \
        mediaserver.te \
        mm-qcamerad.te \
-       mm-pp-daemon.te \
        mpdecision.te \
        netmgrd.te \
        platform_app.te \

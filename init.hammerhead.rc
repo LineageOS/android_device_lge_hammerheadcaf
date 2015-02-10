@@ -186,6 +186,9 @@ on post-fs-data
     mkdir /data/misc/radio 0770 radio radio
     symlink /system/etc/qcril.db /data/misc/radio/qcril.db
 
+    # Create directory used by display clients
+    mkdir /data/misc/display 0770 root system
+
     # Hardware tunables
     chown root system /sys/class/timed_output/vibrator/amp
     chown root system /sys/devices/platform/kcal_ctrl.0/kcal
