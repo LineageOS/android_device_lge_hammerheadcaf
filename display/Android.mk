@@ -1,4 +1,4 @@
-ifeq ($(TARGET_DEVICE),hammerhead)
+ifeq ($(TARGET_DEVICE),hammerheadcaf)
 
 display-hals := libgralloc libgenlock libcopybit libvirtual
 display-hals += libhwcomposer liboverlay libqdutils libexternal libqservice

@@ -15,7 +15,6 @@
 #
 
 import init.hammerhead.usb.rc
-import init.hammerhead_svelte.rc
 import init.hammerhead.diag.rc
 import init.hammerhead.power.rc
 

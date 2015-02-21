@@ -1,12 +1,12 @@
 #Common headers
-common_includes := device/lge/hammerhead/display/libgralloc
-common_includes += device/lge/hammerhead/display/liboverlay
-common_includes += device/lge/hammerhead/display/libcopybit
-common_includes += device/lge/hammerhead/display/libqdutils
-common_includes += device/lge/hammerhead/display/libhwcomposer
-common_includes += device/lge/hammerhead/display/libexternal
-common_includes += device/lge/hammerhead/display/libqservice
-common_includes += device/lge/hammerhead/display/libvirtual
+common_includes := device/lge/hammerheadcaf/display/libgralloc
+common_includes += device/lge/hammerheadcaf/display/liboverlay
+common_includes += device/lge/hammerheadcaf/display/libcopybit
+common_includes += device/lge/hammerheadcaf/display/libqdutils
+common_includes += device/lge/hammerheadcaf/display/libhwcomposer
+common_includes += device/lge/hammerheadcaf/display/libexternal
+common_includes += device/lge/hammerheadcaf/display/libqservice
+common_includes += device/lge/hammerheadcaf/display/libvirtual
 
 ifeq ($(TARGET_USES_POST_PROCESSING),true)
     common_flags     += -DUSES_POST_PROCESSING

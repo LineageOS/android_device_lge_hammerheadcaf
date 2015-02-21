@@ -33,14 +33,15 @@ LOCAL_C_INCLUDES := \
         $(LOCAL_PATH)/../util
 
 LOCAL_C_INCLUDES += \
-        device/lge/hammerhead/display/libgralloc
+        device/lge/hammerheadcaf/display/libgralloc
 
 LOCAL_SHARED_LIBRARIES := libcamera_client liblog libhardware libutils libcutils libdl
 LOCAL_SHARED_LIBRARIES += libmmcamera_interface libmmjpeg_interface libui libcamera_metadata
 
 LOCAL_MODULE_PATH := $(TARGET_OUT_SHARED_LIBRARIES)/hw
 #LOCAL_MODULE := camera.$(TARGET_BOARD_PLATFORM)
-LOCAL_MODULE := camera.$(TARGET_DEVICE)
+#LOCAL_MODULE := camera.$(TARGET_DEVICE)
+LOCAL_MODULE := camera.hammerhead
 LOCAL_MODULE_TAGS := optional
 
 include $(BUILD_SHARED_LIBRARY)

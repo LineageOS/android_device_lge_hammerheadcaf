@@ -23,12 +23,12 @@ PRODUCT_COPY_FILES := device/lge/hammerhead/apns-full-conf.xml:system/etc/apns-c
 # Inherit from the common Open Source product configuration
 $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base_telephony.mk)
 
-PRODUCT_NAME := full_hammerhead
-PRODUCT_DEVICE := hammerhead
+PRODUCT_NAME := full_hammerheadcaf
+PRODUCT_DEVICE := hammerheadcaf
 PRODUCT_BRAND := Android
 PRODUCT_MODEL := AOSP on HammerHead
 PRODUCT_MANUFACTURER := LGE
 PRODUCT_RESTRICT_VENDOR_FILES := false
 
-$(call inherit-product, device/lge/hammerhead/device.mk)
-$(call inherit-product-if-exists, vendor/lge/hammerhead/hammerhead-vendor.mk)
+$(call inherit-product, device/lge/hammerheadcaf/device.mk)
+$(call inherit-product, vendor/lge/hammerheadcaf/hammerheadcaf-vendor.mk)

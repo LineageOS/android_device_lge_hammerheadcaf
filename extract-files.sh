@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Copyright (C) 2013, 2014 The CyanogenMod Project
+# Copyright (C) 2013-2015 The CyanogenMod Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@
 set -e
 
 VENDOR=lge
-DEVICE=hammerhead
+DEVICE=hammerheadcaf
 
 if [ $# -eq 0 ]; then
   SRC=adb

@@ -58,11 +58,7 @@ TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_BCM := true
 
-ifeq ($(TARGET_PRODUCT),car_hammerhead)
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/lge/hammerhead/bluetooth_car
-else
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/lge/hammerhead/bluetooth
-endif
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/lge/hammerheadcaf/bluetooth
 
 # Wifi related defines
 WPA_SUPPLICANT_VERSION      := VER_0_8_X
@@ -80,11 +76,11 @@ BOARD_USES_SECURE_SERVICES := true
 TARGET_NO_RADIOIMAGE := true
 TARGET_BOARD_PLATFORM := msm8974
 TARGET_BOOTLOADER_BOARD_NAME := hammerhead
-TARGET_BOARD_INFO_FILE := device/lge/hammerhead/board-info.txt
+TARGET_BOARD_INFO_FILE := device/lge/hammerheadcaf/board-info.txt
 BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := $(TARGET_BOARD_PLATFORM)
 TARGET_NO_RPC := true
 
-BOARD_EGL_CFG := device/lge/hammerhead/egl.cfg
+BOARD_EGL_CFG := device/lge/hammerheadcaf/egl.cfg
 
 USE_OPENGL_RENDERER := true
 VSYNC_EVENT_PHASE_OFFSET_NS := 7500000
@@ -112,9 +108,9 @@ BOARD_FLASH_BLOCK_SIZE := 131072
 
 BOARD_CHARGER_ENABLE_SUSPEND := true
 
-TARGET_RECOVERY_FSTAB = device/lge/hammerhead/fstab.hammerhead
+TARGET_RECOVERY_FSTAB = device/lge/hammerheadcaf/fstab.hammerhead
 
-TARGET_RELEASETOOLS_EXTENSIONS := device/lge/hammerhead
+TARGET_RELEASETOOLS_EXTENSIONS := device/lge/hammerheadcaf
 
 BOARD_HAL_STATIC_LIBRARIES := libdumpstate.hammerhead
 
@@ -128,39 +124,39 @@ include device/qcom/sepolicy/sepolicy.mk
 
 # Board
 BOARD_SEPOLICY_DIRS += \
-       device/lge/hammerhead/sepolicy
+    device/lge/hammerheadcaf/sepolicy
 
 BOARD_SEPOLICY_UNION += \
-       app.te \
-       bluetooth.te \
-       bluetooth_loader.te \
-       bridge.te \
-       domain.te \
-       file.te \
-       healthd.te \
-       hostapd.te \
-       mediaserver.te \
-       mm-qcamerad.te \
-       mpdecision.te \
-       netmgrd.te \
-       platform_app.te \
-       qmuxd.te \
-       qseecomd.te \
-       radio.te \
-       rild.te \
-       rmt_storage.te \
-       sensors.te \
-       subsystem_ramdump.te \
-       system_app.te \
-       system_server.te \
-       thermal-engine.te \
-       ueventd.te \
-       untrusted_app.te \
-       vold.te \
-       vss.te \
-       wpa.te \
-       file_contexts \
-       genfs_contexts
+    app.te \
+    bluetooth.te \
+    bluetooth_loader.te \
+    bridge.te \
+    domain.te \
+    file.te \
+    healthd.te \
+    hostapd.te \
+    mediaserver.te \
+    mm-qcamerad.te \
+    mpdecision.te \
+    netmgrd.te \
+    platform_app.te \
+    qmuxd.te \
+    qseecomd.te \
+    radio.te \
+    rild.te \
+    rmt_storage.te \
+    sensors.te \
+    subsystem_ramdump.te \
+    system_app.te \
+    system_server.te \
+    thermal-engine.te \
+    ueventd.te \
+    untrusted_app.te \
+    vold.te \
+    vss.te \
+    wpa.te \
+    file_contexts \
+    genfs_contexts
 
 HAVE_ADRENO_SOURCE:= false
 
@@ -182,9 +178,9 @@ BOARD_HAS_NO_SELECT_BUTTON := true
 BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_23x41.h\"
 
 # Hardware
-BOARD_HARDWARE_CLASS := device/lge/hammerhead/cmhw
+BOARD_HARDWARE_CLASS := device/lge/hammerheadcaf/cmhw
 
--include vendor/lge/hammerhead/BoardConfigVendor.mk
+-include vendor/lge/hammerheadcaf/BoardConfigVendor.mk
 
 # Enable Minikin text layout engine (will be the default soon)
 USE_MINIKIN := true

@@ -21,38 +21,38 @@
 
 
 PRODUCT_COPY_FILES += \
-    device/lge/hammerhead/init.hammerhead.rc:root/init.hammerhead.rc \
-    device/lge/hammerhead/init.hammerhead.usb.rc:root/init.hammerhead.usb.rc \
-    device/lge/hammerhead/init.hammerhead.power.rc:root/init.hammerhead.power.rc \
-    device/lge/hammerhead/init.recovery.hammerhead.rc:root/init.recovery.hammerhead.rc \
-    device/lge/hammerhead/fstab.hammerhead:root/fstab.hammerhead \
-    device/lge/hammerhead/ueventd.hammerhead.rc:root/ueventd.hammerhead.rc
+    $(LOCAL_PATH)/init.hammerhead.rc:root/init.hammerhead.rc \
+    $(LOCAL_PATH)/init.hammerhead.usb.rc:root/init.hammerhead.usb.rc \
+    $(LOCAL_PATH)/init.hammerhead.power.rc:root/init.hammerhead.power.rc \
+    $(LOCAL_PATH)/init.recovery.hammerhead.rc:root/init.recovery.hammerhead.rc \
+    $(LOCAL_PATH)/fstab.hammerhead:root/fstab.hammerhead \
+    $(LOCAL_PATH)/ueventd.hammerhead.rc:root/ueventd.hammerhead.rc
 
 # Input device files for hammerhead
 PRODUCT_COPY_FILES += \
-    device/lge/hammerhead/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl \
-    device/lge/hammerhead/gpio-keys.kcm:system/usr/keychars/gpio-keys.kcm \
-    device/lge/hammerhead/qpnp_pon.kl:system/usr/keylayout/qpnp_pon.kl \
-    device/lge/hammerhead/qpnp_pon.kcm:system/usr/keychars/qpnp_pon.kcm \
-    device/lge/hammerhead/Button_Jack.kl:system/usr/keylayout/msm8974-taiko-mtp-snd-card_Button_Jack.kl \
-    device/lge/hammerhead/Button_Jack.kcm:system/usr/keychars/msm8974-taiko-mtp-snd-card_Button_Jack.kcm \
-    device/lge/hammerhead/hs_detect.kl:system/usr/keylayout/hs_detect.kl \
-    device/lge/hammerhead/hs_detect.kcm:system/usr/keychars/hs_detect.kcm
+    $(LOCAL_PATH)/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl \
+    $(LOCAL_PATH)/gpio-keys.kcm:system/usr/keychars/gpio-keys.kcm \
+    $(LOCAL_PATH)/qpnp_pon.kl:system/usr/keylayout/qpnp_pon.kl \
+    $(LOCAL_PATH)/qpnp_pon.kcm:system/usr/keychars/qpnp_pon.kcm \
+    $(LOCAL_PATH)/Button_Jack.kl:system/usr/keylayout/msm8974-taiko-mtp-snd-card_Button_Jack.kl \
+    $(LOCAL_PATH)/Button_Jack.kcm:system/usr/keychars/msm8974-taiko-mtp-snd-card_Button_Jack.kcm \
+    $(LOCAL_PATH)/hs_detect.kl:system/usr/keylayout/hs_detect.kl \
+    $(LOCAL_PATH)/hs_detect.kcm:system/usr/keychars/hs_detect.kcm
 
 # Prebuilt input device calibration files
 PRODUCT_COPY_FILES += \
-    device/lge/hammerhead/touch_dev.idc:system/usr/idc/touch_dev.idc
+    $(LOCAL_PATH)/touch_dev.idc:system/usr/idc/touch_dev.idc
 
 PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml \
     frameworks/av/media/libstagefright/data/media_codecs_ffmpeg.xml:system/etc/media_codecs_ffmpeg.xml \
-    device/lge/hammerhead/media_codecs.xml:system/etc/media_codecs.xml \
-    device/lge/hammerhead/media_profiles.xml:system/etc/media_profiles.xml
+    $(LOCAL_PATH)/media_codecs.xml:system/etc/media_codecs.xml \
+    $(LOCAL_PATH)/media_profiles.xml:system/etc/media_profiles.xml
 
 PRODUCT_COPY_FILES += \
-    device/lge/hammerhead/bcmdhd.cal:system/etc/wifi/bcmdhd.cal
+    $(LOCAL_PATH)/bcmdhd.cal:system/etc/wifi/bcmdhd.cal
 
 # These are the hardware-specific features
 PRODUCT_COPY_FILES += \
@@ -82,21 +82,21 @@ PRODUCT_COPY_FILES += \
 
 # For GPS
 PRODUCT_COPY_FILES += \
-    device/lge/hammerhead/sec_config:system/etc/sec_config
+    $(LOCAL_PATH)/sec_config:system/etc/sec_config
 
 # NFC access control + feature files + configuration
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.nfc.xml:system/etc/permissions/android.hardware.nfc.xml \
     frameworks/native/data/etc/android.hardware.nfc.hce.xml:system/etc/permissions/android.hardware.nfc.hce.xml \
-    device/lge/hammerhead/nfc/libnfc-brcm.conf:system/etc/libnfc-brcm.conf \
-    device/lge/hammerhead/nfc/libnfc-brcm-20791b05.conf:system/etc/libnfc-brcm-20791b05.conf
+    $(LOCAL_PATH)/nfc/libnfc-brcm.conf:system/etc/libnfc-brcm.conf \
+    $(LOCAL_PATH)/nfc/libnfc-brcm-20791b05.conf:system/etc/libnfc-brcm-20791b05.conf
 
 PRODUCT_COPY_FILES += \
-    device/lge/hammerhead/thermal-engine-8974.conf:system/etc/thermal-engine-8974.conf
+    $(LOCAL_PATH)/thermal-engine-8974.conf:system/etc/thermal-engine-8974.conf
 
 # For SPN display
 PRODUCT_COPY_FILES += \
-    device/lge/hammerhead/spn-conf.xml:system/etc/spn-conf.xml
+    $(LOCAL_PATH)/spn-conf.xml:system/etc/spn-conf.xml
 
 # This device is xhdpi.  However the platform doesn't
 # currently contain all of the bitmaps at xhdpi density so
@@ -108,7 +108,7 @@ PRODUCT_AAPT_PREF_CONFIG := xxhdpi
 PRODUCT_CHARACTERISTICS := nosdcard
 
 DEVICE_PACKAGE_OVERLAYS := \
-    device/lge/hammerhead/overlay
+    $(LOCAL_PATH)/overlay
 
 PRODUCT_PACKAGES := \
     libwpa_client \
@@ -145,7 +145,8 @@ PRODUCT_PACKAGES += \
     libstagefrighthw \
     qcmediaplayer
 
-PRODUCT_BOOT_JARS += qcmediaplayer
+PRODUCT_BOOT_JARS += \
+    qcmediaplayer
 
 # Audio
 PRODUCT_PACKAGES += \
@@ -178,10 +179,10 @@ PRODUCT_PACKAGES += \
     libqcompostprocbundle
 
 PRODUCT_COPY_FILES += \
-    device/lge/hammerhead/audio_effects.conf:system/vendor/etc/audio_effects.conf \
-    device/lge/hammerhead/audio_policy.conf:system/etc/audio_policy.conf \
-    device/lge/hammerhead/audio_platform_info.xml:system/etc/audio_platform_info.xml \
-    device/lge/hammerhead/mixer_paths.xml:system/etc/mixer_paths.xml
+    $(LOCAL_PATH)/audio_effects.conf:system/vendor/etc/audio_effects.conf \
+    $(LOCAL_PATH)/audio_policy.conf:system/etc/audio_policy.conf \
+    $(LOCAL_PATH)/audio_platform_info.xml:system/etc/audio_platform_info.xml \
+    $(LOCAL_PATH)/mixer_paths.xml:system/etc/mixer_paths.xml
 
 PRODUCT_PACKAGES += \
     libqomx_core \
@@ -199,7 +200,7 @@ PRODUCT_PACKAGES += \
 
 # GPS configuration
 PRODUCT_COPY_FILES += \
-    device/lge/hammerhead/gps.conf:system/etc/gps.conf
+    $(LOCAL_PATH)/gps.conf:system/etc/gps.conf
 
 # GPS
 PRODUCT_PACKAGES += \
@@ -374,14 +375,14 @@ PRODUCT_PACKAGES += \
     QXDMLogger
 
 PRODUCT_COPY_FILES += \
-    device/lge/hammerhead/init.hammerhead.diag.rc.userdebug:root/init.hammerhead.diag.rc
+    $(LOCAL_PATH)/init.hammerhead.diag.rc.userdebug:root/init.hammerhead.diag.rc
 else
 PRODUCT_COPY_FILES += \
-    device/lge/hammerhead/init.hammerhead.diag.rc.user:root/init.hammerhead.diag.rc
+    $(LOCAL_PATH)/init.hammerhead.diag.rc.user:root/init.hammerhead.diag.rc
 endif
 
 # QCOM display HAL
-$(call project-set-path,qcom-display,device/lge/hammerhead/display)
+$(call project-set-path,qcom-display,device/lge/hammerheadcaf/display)
 
 # setup dalvik vm configs.
 $(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
