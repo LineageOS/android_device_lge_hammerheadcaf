@@ -859,6 +859,12 @@
         <ctl name="DEC6 Volume" value="92"/>
     </path>
 
+    <path name="camcorder-mic">
+        <path name="handset-mic" />
+        <ctl name="ADC1 Volume" value="19" />
+        <ctl name="DEC6 Volume" value="92"/>
+    </path>
+
     <path name="hdmi-tx">
         <path name="handset-mic" />
     </path>
@@ -980,10 +986,6 @@
 
     <path name="voice-rec-dmic-bs-fluence">
         <path name="dmic-broadside" />
-    </path>
-
-    <path name="camcorder-mic">
-	<path name="rec-stereo-mic" />
     </path>
 
     <!-- TTY devices -->
