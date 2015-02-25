@@ -119,6 +119,9 @@ BOARD_HAL_STATIC_LIBRARIES := libdumpstate.hammerhead
 TARGET_KERNEL_CONFIG := cyanogenmod_hammerhead_defconfig
 TARGET_KERNEL_SOURCE := kernel/lge/hammerhead
 
+# Package assert
+TARGET_OTA_ASSERT_DEVICE := hammerhead
+
 # SELinux policies
 # QCOM
 include device/qcom/sepolicy/sepolicy.mk
