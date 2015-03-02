@@ -94,6 +94,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/thermal-engine-8974.conf:system/etc/thermal-engine-8974.conf
 
+# Post installation script
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/post-install.sh:install/bin/post-install.sh
+
 # For SPN display
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/spn-conf.xml:system/etc/spn-conf.xml

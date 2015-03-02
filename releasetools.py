@@ -58,6 +58,9 @@ def FullOTA_InstallEnd(info):
   else:
     print "no radio.img in target_files; skipping install"
 
+  info.script.AppendExtra(
+      'run_program("/tmp/install/bin/post-install.sh");')
+
 
 def IncrementalOTA_VerifyEnd(info):
   target_radio_img = FindRadio(info.target_zip)
