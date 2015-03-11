@@ -8,8 +8,8 @@ allow mpdecision self:capability sys_nice;
 allow mpdecision sysfs_mpdecision:dir r_dir_perms;
 
 # Default_values file
-allow mpdecision mpctl_data_file:dir r_dir_perms;
-allow mpdecision mpctl_data_file:file create_file_perms;
+allow mpdecision system_data_file:dir rw_dir_perms;
+allow mpdecision system_data_file:file create_file_perms;
 
 # This is needed to allow mpdecision to look at system_server's
 # /proc/PID/status file.
