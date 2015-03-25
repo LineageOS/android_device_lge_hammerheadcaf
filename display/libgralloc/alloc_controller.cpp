@@ -73,13 +73,18 @@ static bool canFallback(int usage, bool triedSystem)
     return true;
 }
 
-static bool useUncached(int usage)
-{
-    if (usage & GRALLOC_USAGE_PRIVATE_UNCACHED)
+/* The default policy is to return cached buffers unless the client explicity
+ * sets the PRIVATE_UNCACHED flag or indicates that the buffer will be rarely
+ * read or written in software. Any combination with a _RARELY_ flag will be
+ * treated as uncached. */
+static bool useUncached(const int& usage) {
+    if((usage & GRALLOC_USAGE_PRIVATE_UNCACHED) or
+            ((usage & GRALLOC_USAGE_SW_WRITE_MASK) ==
+            GRALLOC_USAGE_SW_WRITE_RARELY) or
+            ((usage & GRALLOC_USAGE_SW_READ_MASK) ==
+            GRALLOC_USAGE_SW_READ_RARELY))
         return true;
-    if(((usage & GRALLOC_USAGE_SW_WRITE_MASK) == GRALLOC_USAGE_SW_WRITE_RARELY)
-       ||((usage & GRALLOC_USAGE_SW_READ_MASK) == GRALLOC_USAGE_SW_READ_RARELY))
-        return true;
+
     return false;
 }
 
@@ -381,6 +386,70 @@ size_t getBufferSizeAndDimensions(int width, int height, int format,
 
     return size;
 }
+
+int getYUVPlaneInfo(private_handle_t* hnd, struct android_ycbcr* ycbcr)
+{
+    int err = 0;
+    size_t ystride, cstride;
+    memset(ycbcr->reserved, 0, sizeof(ycbcr->reserved));
+
+    // Get the chroma offsets from the handle width/height. We take advantage
+    // of the fact the width _is_ the stride
+    switch (hnd->format) {
+        //Semiplanar
+        case HAL_PIXEL_FORMAT_YCbCr_420_SP:
+        case HAL_PIXEL_FORMAT_YCbCr_422_SP:
+        case HAL_PIXEL_FORMAT_YCbCr_420_SP_VENUS:
+        case HAL_PIXEL_FORMAT_NV12_ENCODEABLE: //Same as YCbCr_420_SP_VENUS
+            ystride = cstride = hnd->width;
+            ycbcr->y  = (void*)hnd->base;
+            ycbcr->cb = (void*)(hnd->base + ystride * hnd->height);
+           ycbcr->cr = (void*)(hnd->base + ystride * hnd->height + 1);
+            ycbcr->ystride = ystride;
+            ycbcr->cstride = cstride;
+            ycbcr->chroma_step = 2;
+        break;
+
+        case HAL_PIXEL_FORMAT_YCrCb_420_SP:
+        case HAL_PIXEL_FORMAT_YCrCb_422_SP:
+        case HAL_PIXEL_FORMAT_YCrCb_420_SP_ADRENO:
+        case HAL_PIXEL_FORMAT_NV21_ZSL:
+        case HAL_PIXEL_FORMAT_RAW_SENSOR:
+            ystride = cstride = hnd->width;
+            ycbcr->y  = (void*)hnd->base;
+            ycbcr->cr = (void*)(hnd->base + ystride * hnd->height);
+            ycbcr->cb = (void*)(hnd->base + ystride * hnd->height + 1);
+            ycbcr->ystride = ystride;
+            ycbcr->cstride = cstride;
+            ycbcr->chroma_step = 2;
+        break;
+
+        //Planar
+        case HAL_PIXEL_FORMAT_YV12:
+            ystride = hnd->width;
+            cstride = ALIGN(hnd->width/2, 16);
+            ycbcr->y  = (void*)hnd->base;
+            ycbcr->cr = (void*)(hnd->base + ystride * hnd->height);
+            ycbcr->cb = (void*)(hnd->base + ystride * hnd->height +
+                    cstride * hnd->height/2);
+            ycbcr->ystride = ystride;
+            ycbcr->cstride = cstride;
+            ycbcr->chroma_step = 1;
+
+       break;
+        //Unsupported formats
+        case HAL_PIXEL_FORMAT_YCbCr_422_I:
+        case HAL_PIXEL_FORMAT_YCrCb_422_I:
+        case HAL_PIXEL_FORMAT_YCbCr_420_SP_TILED:
+        default:
+        ALOGD("%s: Invalid format passed: 0x%x", __FUNCTION__,
+                hnd->format);
+        err = -EINVAL;
+    }
+    return err;
+
+}
+
 
 // Allocate buffer from width, height and format into a
 // private_handle_t. It is the responsibility of the caller

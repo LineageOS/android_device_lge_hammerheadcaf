@@ -76,6 +76,7 @@ enum {
     GRALLOC_MODULE_PERFORM_CREATE_HANDLE_FROM_BUFFER = 1,
     GRALLOC_MODULE_PERFORM_GET_STRIDE,
     GRALLOC_MODULE_PERFORM_GET_CUSTOM_STRIDE_AND_HEIGHT_FROM_HANDLE,
+    GRALLOC_MODULE_PERFORM_GET_YUV_PLANE_INFO,
 };
 
 #define GRALLOC_HEAP_MASK   (GRALLOC_USAGE_PRIVATE_UI_CONTIG_HEAP |\
@@ -143,11 +144,9 @@ struct private_handle_t : public native_handle {
             PRIV_FLAGS_USES_ION           = 0x00000008,
             PRIV_FLAGS_USES_ASHMEM        = 0x00000010,
             PRIV_FLAGS_NEEDS_FLUSH        = 0x00000020,
-            PRIV_FLAGS_DO_NOT_FLUSH       = 0x00000040,
-            PRIV_FLAGS_SW_LOCK            = 0x00000080,
+            PRIV_FLAGS_NON_CPU_WRITER     = 0x00000080,
             PRIV_FLAGS_NONCONTIGUOUS_MEM  = 0x00000100,
-            // Set by HWC when storing the handle
-            PRIV_FLAGS_HWC_LOCK           = 0x00000200,
+            PRIV_FLAGS_CACHED             = 0x00000200,
             PRIV_FLAGS_SECURE_BUFFER      = 0x00000400,
             // For explicit synchronization
             PRIV_FLAGS_UNSYNCHRONIZED     = 0x00000800,

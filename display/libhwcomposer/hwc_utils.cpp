@@ -248,6 +248,10 @@ void initContext(hwc_context_t *ctx)
     ctx->mVPUClient = new VPUClient();
 #endif
 
+    ctx->enableABC = false;
+    property_get("debug.sf.hwc.canUseABC", value, "0");
+    ctx->enableABC  = atoi(value) ? true : false;
+
     // Initialize gpu perfomance hint related parameters
     property_get("sys.hwc.gpu_perf_mode", value, "0");
     ctx->mGPUHintInfo.mGpuPerfModeEnable = atoi(value)? true : false;
@@ -257,6 +261,7 @@ void initContext(hwc_context_t *ctx)
     ctx->mGPUHintInfo.mPrevCompositionGLES = false;
     ctx->mGPUHintInfo.mCurrGPUPerfMode = EGL_GPU_LEVEL_0;
     memset(&(ctx->mPtorInfo), 0, sizeof(ctx->mPtorInfo));
+    ctx->mHPDEnabled = false;
     ALOGI("Initializing Qualcomm Hardware Composer");
     ALOGI("MDP version: %d", ctx->mMDP.version);
 }
@@ -790,13 +795,13 @@ void setListStats(hwc_context_t *ctx,
     ctx->listStats[dpy].isSecurePresent = false;
     ctx->listStats[dpy].yuvCount = 0;
     char property[PROPERTY_VALUE_MAX];
-    ctx->listStats[dpy].extOnlyLayerIndex = -1;
     ctx->listStats[dpy].isDisplayAnimating = false;
     ctx->listStats[dpy].roi = ovutils::Dim(0, 0,
                       (int)ctx->dpyAttr[dpy].xres, (int)ctx->dpyAttr[dpy].yres);
     ctx->listStats[dpy].secureUI = false;
     ctx->listStats[dpy].yuv4k2kCount = 0;
     ctx->dpyAttr[dpy].mActionSafePresent = isActionSafePresent(ctx, dpy);
+    ctx->listStats[dpy].renderBufIndexforABC = -1;
 
     trimList(ctx, list, dpy);
     optimizeLayerRects(ctx, list, dpy);
@@ -843,10 +848,6 @@ void setListStats(hwc_context_t *ctx,
         if(layer->blending == HWC_BLENDING_PREMULT)
             ctx->listStats[dpy].preMultipliedAlpha = true;
 
-
-        if(UNLIKELY(isExtOnly(hnd))){
-            ctx->listStats[dpy].extOnlyLayerIndex = i;
-        }
     }
     if(ctx->listStats[dpy].yuvCount > 0) {
         if (property_get("hw.cabl.yuv", property, NULL) > 0) {
@@ -1043,6 +1044,13 @@ hwc_rect_t moveRect(const hwc_rect_t& rect, const int& x_off, const int& y_off)
     res.bottom = rect.bottom + y_off;
 
     return res;
+}
+
+bool operator ==(const hwc_rect_t& lhs, const hwc_rect_t& rhs) {
+    if(lhs.left == rhs.left && lhs.top == rhs.top &&
+       lhs.right == rhs.right &&  lhs.bottom == rhs.bottom )
+          return true ;
+    return false;
 }
 
 /* computes the intersection of two rects */
@@ -1266,11 +1274,20 @@ int hwc_sync(hwc_context_t *ctx, hwc_display_contents_1_t* list, int dpy,
     }
 
     for(uint32_t i = 0; i < list->numHwLayers; i++) {
-        if(list->hwLayers[i].compositionType == HWC_OVERLAY &&
+        if(((isAbcInUse(ctx)== true ) ||
+          (list->hwLayers[i].compositionType == HWC_OVERLAY)) &&
                         list->hwLayers[i].acquireFenceFd >= 0) {
             if(UNLIKELY(swapzero))
                 acquireFd[count++] = -1;
-            else
+            // if ABC is enabled for more than one layer.
+            // renderBufIndexforABC will work as FB.Hence
+            // set the acquireFD from fd - which is coming from copybit
+            else if(fd >= 0 && (isAbcInUse(ctx) == true)) {
+                if(ctx->listStats[dpy].renderBufIndexforABC ==(int32_t)i)
+                   acquireFd[count++] = fd;
+                else
+                   continue;
+            } else
                 acquireFd[count++] = list->hwLayers[i].acquireFenceFd;
         }
         if(list->hwLayers[i].compositionType == HWC_FRAMEBUFFER_TARGET) {
@@ -1323,12 +1340,22 @@ int hwc_sync(hwc_context_t *ctx, hwc_display_contents_1_t* list, int dpy,
                 // if animation is in progress.
                 list->hwLayers[i].releaseFenceFd = -1;
             } else if(list->hwLayers[i].releaseFenceFd < 0) {
-                //If rotator has not already populated this field.
-                if(list->hwLayers[i].compositionType == HWC_BLIT) {
-                    //For Blit, the app layers should be released when the Blit is
-                    //complete. This fd was passed from copybit->draw
+#ifdef QCOM_BSP
+                //If rotator has not already populated this field
+                // & if it's a not VPU layer
+
+                // if ABC is enabled for more than one layer
+                if(fd >= 0 && (isAbcInUse(ctx) == true) &&
+                  ctx->listStats[dpy].renderBufIndexforABC !=(int32_t)i){
                     list->hwLayers[i].releaseFenceFd = dup(fd);
-                } else {
+                } else if((list->hwLayers[i].compositionType == HWC_BLIT)&&
+                                               (isAbcInUse(ctx) == false)){
+                    //For Blit, the app layers should be released when the Blit
+                    //is complete. This fd was passed from copybit->draw
+                    list->hwLayers[i].releaseFenceFd = dup(fd);
+                } else 
+#endif
+                {
                     list->hwLayers[i].releaseFenceFd = dup(releaseFd);
                 }
             }
@@ -1398,7 +1425,7 @@ void setMdpFlags(hwc_layer_1_t *layer,
                 ovutils::OV_MDP_SMP_FORCE_ALLOC);
     }
 
-    if(isProtectedBuffer(hnd)) {
+    if(isSecureBuffer(hnd) || isProtectedBuffer(hnd)) {
         ovutils::setMdpFlags(mdpFlags,
                 ovutils::OV_MDP_SMP_FORCE_ALLOC);
     }
@@ -1830,8 +1857,6 @@ int configureSourceSplit(hwc_context_t *ctx, hwc_layer_1_t *layer,
         (*rot) = ctx->mRotMgr->getNext();
         if((*rot) == NULL) return -1;
         ctx->mLayerRotMap[dpy]->add(layer, *rot);
-        if(!dpy)
-            BwcPM::setBwc(ctx, crop, dst, transform, mdpFlagsL);
         //Configure rotator for pre-rotation
         if(configRotator(*rot, whf, crop, mdpFlagsL, orient, downscale) < 0) {
             ALOGE("%s: configRotator failed!", __FUNCTION__);
@@ -1970,6 +1995,10 @@ void dumpBuffer(private_handle_t *ohnd, char *bufferName) {
         ALOGD("Buffer[%s] Dump to %s: %s",
         bufferName, dumpFilename, bResult ? "Success" : "Fail");
     }
+}
+
+bool isAbcInUse(hwc_context_t *ctx){
+  return (ctx->enableABC && ctx->listStats[0].renderBufIndexforABC == 0);
 }
 
 bool isGLESComp(hwc_context_t *ctx,
