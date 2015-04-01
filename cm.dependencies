@@ -1,7 +1,7 @@
 [
  {
    "repository": "android_kernel_lge_hammerhead",
-   "branch": "cm-12.0-caf",
+   "branch": "cm-12.1-caf",
    "target_path": "kernel/lge/hammerhead"
  },
  {
