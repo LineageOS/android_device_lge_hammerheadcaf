@@ -117,39 +117,7 @@ TARGET_KERNEL_SOURCE := kernel/lge/hammerhead
 include device/qcom/sepolicy/sepolicy.mk
 
 # Board
-BOARD_SEPOLICY_DIRS += \
-    device/lge/hammerheadcaf/sepolicy
-
-BOARD_SEPOLICY_UNION += \
-    app.te \
-    bluetooth.te \
-    bluetooth_loader.te \
-    bridge.te \
-    file.te \
-    healthd.te \
-    hostapd.te \
-    mediaserver.te \
-    mm-qcamerad.te \
-    mpdecision.te \
-    netmgrd.te \
-    platform_app.te \
-    qmuxd.te \
-    qseecomd.te \
-    radio.te \
-    rild.te \
-    rmt_storage.te \
-    sensors.te \
-    subsystem_ramdump.te \
-    system_app.te \
-    system_server.te \
-    thermal-engine.te \
-    ueventd.te \
-    untrusted_app.te \
-    vold.te \
-    vss.te \
-    wpa.te \
-    file_contexts \
-    genfs_contexts
+BOARD_SEPOLICY_DIRS += device/lge/hammerheadcaf/sepolicy
 
 HAVE_ADRENO_SOURCE:= false
 
