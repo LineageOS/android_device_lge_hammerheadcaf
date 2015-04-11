@@ -1,0 +1,12 @@
+type chk_crypt, domain;
+type chk_crypt_exec, exec_type, file_type;
+
+# Started by init
+init_daemon_domain(chk_crypt)
+
+userdebug_or_eng(`
+    allow chk_crypt crypto_key_device:blk_file r_file_perms;
+    allow chk_crypt shell_exec:file r_file_perms;
+    allow chk_crypt sysfs:file w_file_perms;
+    allow chk_crypt system_file:file rx_file_perms;
+')
