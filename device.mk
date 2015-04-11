@@ -236,7 +236,7 @@ PRODUCT_PACKAGES += \
 
 # QCOM Perf lib
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.vendor.extension_library=/vendor/lib/libqc-opt.so
+    ro.vendor.extension_library=/vendor/lib/libqti-perfd-client.so
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.opengles.version=196608

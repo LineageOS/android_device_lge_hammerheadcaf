@@ -29,6 +29,7 @@
 /system/bin/mpdecision
 /system/bin/netmgrd
 /system/bin/nl_listener
+/system/bin/perfd
 /system/bin/port-bridge
 /system/bin/qmuxd
 /system/bin/qseecomd
@@ -211,7 +212,6 @@
 /system/vendor/lib/libOmxWmaDec.so
 /system/vendor/lib/libOpenCL.so
 /system/vendor/lib/libqcci_legacy.so
-/system/vendor/lib/libqc-opt.so
 /system/vendor/lib/libqdi.so
 /system/vendor/lib/libqdp.so
 /system/vendor/lib/libqmi_cci.so
@@ -223,6 +223,7 @@
 /system/vendor/lib/libqmi.so
 /system/vendor/lib/libqomx_jpegenc.so
 /system/vendor/lib/libQSEEComAPI.so
+/system/vendor/lib/libqti-perfd-client.so
 /system/vendor/lib/libril-qcril-hook-oem.so
 /system/vendor/lib/librpmb.so
 /system/vendor/lib/librs_adreno_sha1.so
