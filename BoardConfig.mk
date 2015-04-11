@@ -126,6 +126,7 @@ BOARD_SEPOLICY_UNION += \
     bluetooth.te \
     bluetooth_loader.te \
     bridge.te \
+    chk_crypt.te \
     domain.te \
     file.te \
     healthd.te \

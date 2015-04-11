@@ -1,0 +1,2 @@
+# Define device for crypto key
+type crypto_key_device, dev_type;
