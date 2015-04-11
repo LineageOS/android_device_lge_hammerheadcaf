@@ -1,0 +1,6 @@
+#!/system/bin/sh
+
+dd if=/dev/block/platform/msm_sdcc.1/by-name/metadata count=32 bs=512 | grep "aes-"
+if [ $? -eq 0 ]; then
+  echo 0 > /sys/class/graphics/fb0/idle_pc
+fi
