@@ -94,6 +94,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/thermal-engine-8974.conf:system/etc/thermal-engine-8974.conf
 
+# Check for encryption
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/chk_crypt:system/bin/chk_crypt
+
 # For SPN display
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/spn-conf.xml:system/etc/spn-conf.xml

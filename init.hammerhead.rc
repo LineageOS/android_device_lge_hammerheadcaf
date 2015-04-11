@@ -53,6 +53,8 @@ on fs
     restorecon_recursive /persist
     setprop ro.crypto.fuse_sdcard true
 
+    start chk_crypt
+
 on early-boot
     # set RLIMIT_MEMLOCK to 64MB
     setrlimit 8 67108864 67108864
@@ -332,6 +334,11 @@ service qseecomd /system/bin/qseecomd
     class core
     user root
     group root
+
+service chk_crypt /system/bin/chk_crypt
+    class core
+    disabled
+    oneshot
 
 # virtual sdcard daemon running as media_rw (1023)
 service sdcard /system/bin/sdcard -u 1023 -g 1023 -l /data/media /mnt/shell/emulated
