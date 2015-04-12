@@ -228,10 +228,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     com.android.future.usb.accessory
 
-# Filesystem management tools
-PRODUCT_PACKAGES += \
-    e2fsck
-
 # for off charging mode
 PRODUCT_PACKAGES += \
     charger_res_images
