@@ -200,6 +200,9 @@ on post-fs-data
 
     setprop vold.post_fs_data_done 1
 
+on property:vold.decrypt=trigger_reset_main
+    write /sys/class/graphics/fb0/idle_pc 0
+
 on property:init.svc.wpa_supplicant=stopped
     stop dhcpcd
 
