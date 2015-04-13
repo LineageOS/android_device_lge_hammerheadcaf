@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3ac371cc_d60962df",
+        "filename": "device.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 9180
+      },
+      "writtenOn": "2015-04-13T08:28:37Z",
+      "side": 1,
+      "message": "you could also remove this with this commit if you like. This too is ignored",
+      "revId": "a0fe37fa267b6ad9d3f0519227d0a804f91b7791",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
