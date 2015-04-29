@@ -113,4 +113,5 @@ on property:init.svc.bootanim=stopped
     # i/o scheduler
     setprop sys.io.scheduler "cfq"
 
+    rm /data/system/perfd/default_values
     start mpdecision
