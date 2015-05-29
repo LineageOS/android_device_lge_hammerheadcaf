@@ -957,7 +957,9 @@
     </path>
 
     <path name="handset-stereo-dmic-ef">
-        <path name="rec-stereo-mic" />
+        <path name="speaker-dmic-endfire" />
+        <ctl name="DEC6 Volume" value="98" />
+        <ctl name="DEC4 Volume" value="98" />
     </path>
 
     <path name="voice-dmic-bs">
