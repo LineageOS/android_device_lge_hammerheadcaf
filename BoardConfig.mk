@@ -144,6 +144,10 @@ RECOVERY_FSTAB_VERSION := 2
 BOARD_HAS_NO_SELECT_BUTTON := true
 BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_23x41.h\"
 
+# Releasetools
+TARGET_RECOVERY_UPDATER_LIBS := librecovery_updater_hammerhead
+TARGET_RELEASETOOLS_EXTENSIONS := device/lge/hammerheadcaf
+
 # Hardware
 BOARD_HARDWARE_CLASS := device/lge/hammerheadcaf/cmhw
 
