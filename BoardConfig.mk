@@ -110,6 +110,8 @@ BOARD_CHARGER_SHOW_PERCENTAGE := true
 
 TARGET_RECOVERY_FSTAB = device/lge/hammerheadcaf/fstab.hammerhead
 
+# Releasetools
+TARGET_RECOVERY_UPDATER_LIBS := librecovery_updater_hammerhead
 TARGET_RELEASETOOLS_EXTENSIONS := device/lge/hammerheadcaf
 
 BOARD_HAL_STATIC_LIBRARIES := libdumpstate.hammerhead

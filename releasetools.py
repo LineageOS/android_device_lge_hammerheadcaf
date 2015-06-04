@@ -21,10 +21,12 @@ TARGET_DIR = os.getenv('OUT')
 
 def FullOTA_Assertions(info):
   AddBootloaderAssertion(info, info.input_zip)
+  AddBasebandAssertion(info, info.input_zip)
 
 
 def IncrementalOTA_Assertions(info):
   AddBootloaderAssertion(info, info.target_zip)
+  AddBasebandAssertion(info, info.target_zip)
 
 
 def AddBootloaderAssertion(info, input_zip):
@@ -32,9 +34,19 @@ def AddBootloaderAssertion(info, input_zip):
   m = re.search(r"require\s+version-bootloader\s*=\s*(\S+)", android_info)
   if m:
     bootloaders = m.group(1).split("|")
-    if "*" not in bootloaders:
+    if len(bootloaders) and "*" not in bootloaders:
       info.script.AssertSomeBootloader(*bootloaders)
     info.metadata["pre-bootloader"] = m.group(1)
+
+
+def AddBasebandAssertion(info, input_zip):
+  android_info = input_zip.read("OTA/android-info.txt")
+  m = re.search(r'require\s+version-baseband\s*=\s*(\S+)', android_info)
+  if m:
+    basebands = m.group(1).split('|')
+    if len(basebands) and '*' not in basebands:
+      cmd = 'assert(hammerhead.verify_baseband(' + ','.join(['"%s"' % baseband for baseband in basebands]) + ') == "1");'
+      info.script.AppendExtra(cmd)
 
 
 def FindRadio(zipfile):
