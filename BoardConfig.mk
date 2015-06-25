@@ -77,8 +77,7 @@ TARGET_NO_RPC := true
 BOARD_EGL_CFG := device/lge/hammerheadcaf/egl.cfg
 
 USE_OPENGL_RENDERER := true
-VSYNC_EVENT_PHASE_OFFSET_NS := 7500000
-SF_VSYNC_EVENT_PHASE_OFFSET_NS := 5000000
+NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 TARGET_USES_ION := true
 
 # Enable dex-preoptimization to speed up first boot sequence
