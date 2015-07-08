@@ -435,8 +435,8 @@ static int hwc_setPowerMode(struct hwc_composer_device_1* dev, int dpy,
             ctx->mHPDEnabled = true;
         }
 
-        ctx->dpyAttr[dpy].isActive = not(mode == HWC_POWER_MODE_OFF ||
-                mode == HWC_POWER_MODE_DOZE_SUSPEND);
+        ctx->dpyAttr[dpy].isActive = not(mode == HWC_POWER_MODE_OFF);
+	//TODO: Fix this when doze suspend is fixed
 
         if(ctx->mVirtualonExtActive) {
             /* if mVirtualonExtActive is true, display hal will
