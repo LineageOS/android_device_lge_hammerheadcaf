@@ -7,6 +7,3 @@ allow qmuxd radio_device:chr_file rw_file_perms;
 
 # wake lock access
 wakelock_use(qmuxd)
-
-# Access to /sys/devices/virtual/smdpkt/smdcntl*/open_timeout
-allow qmuxd sysfs_smd_open_timeout:file rw_file_perms;
