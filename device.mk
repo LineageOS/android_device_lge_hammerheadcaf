@@ -339,7 +339,8 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 
 # If data_no_toggle is 1 then active and dormancy enable at all times.
 # If data_no_toggle is 0 there are no reports if the screen is off.
-PRODUCT_PROPERTY_OVERRIDES += \
+# Leaving this property unset defaults to '0'
+#PRODUCT_PROPERTY_OVERRIDES += \
     persist.radio.data_no_toggle=1
 
 # Setup custom emergency number list based on the MCC. This is needed by RIL
