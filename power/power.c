@@ -243,24 +243,6 @@ int __attribute__ ((weak)) set_interactive_override(
     return HINT_NONE;
 }
 
-static void cm_power_set_interactive_ext(int on)
-{
-    char tmp_str[NODE_MAX];
-    int tmp;
-
-    if (sysfs_read(GO_HISPEED_LOAD_PATH, tmp_str, NODE_MAX - 1)) {
-        return;
-    }
-
-    tmp = atoi(tmp_str);
-    if (!go_hispeed_load || (go_hispeed_load != tmp && off_hispeed_load != tmp)) {
-        go_hispeed_load = tmp;
-    }
-
-    snprintf(tmp_str, NODE_MAX, "%d", on ? go_hispeed_load : off_hispeed_load);
-    sysfs_write(GO_HISPEED_LOAD_PATH, tmp_str);
-}
-
 void set_interactive(struct power_module *module, int on)
 {
     char governor[80];
@@ -270,8 +252,6 @@ void set_interactive(struct power_module *module, int on)
     int tmp;
 
     pthread_mutex_lock(&hint_mutex);
-
-    //cm_power_set_interactive_ext(on);
 
     if (set_interactive_override(module, on) == HINT_HANDLED) {
         goto out;
