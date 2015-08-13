@@ -584,7 +584,8 @@ void MDPComp::generateROI(hwc_context_t *ctx, hwc_display_contents_1_t* list) {
         hwc_layer_1_t* layer = &list->hwLayers[index];
         if (layerUpdating(layer) ||
                 isYuvBuffer((private_handle_t *)layer->handle)) {
-            hwc_rect_t updatingRect = layer->displayFrame;
+            hwc_rect_t updatingRect = getIntersection(layer->displayFrame,
+                                                    fullFrame);
             if(!needsScaling(layer) && !layer->transform &&
                    (!isYuvBuffer((private_handle_t *)layer->handle)))
             {
