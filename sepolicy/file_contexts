@@ -35,7 +35,6 @@
 /sys/class/android_usb/f_rmnet_smd_sdio/transport                    -- u:object_r:sysfs_rmnet:s0
 /sys/devices/virtual/android_usb/android0/f_rmnet_smd_sdio/transport -- u:object_r:sysfs_rmnet:s0
 /sys/devices/platform/bluetooth_rfkill/rfkill/rfkill0/state          -- u:object_r:sysfs_bluetooth_writable:s0
-/sys/devices/virtual/graphics/fb0/rgb                                -- u:object_r:sysfs_hardware:s0
 /sys/devices/virtual/timed_output/vibrator/amp                       -- u:object_r:sysfs_hardware:s0
 
 ###################################
