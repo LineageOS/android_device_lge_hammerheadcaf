@@ -123,7 +123,6 @@ BOARD_SEPOLICY_UNION += \
     app.te \
     bluetooth.te \
     bluetooth_loader.te \
-    bootanim.te \
     bridge.te \
     file.te \
     healthd.te \
