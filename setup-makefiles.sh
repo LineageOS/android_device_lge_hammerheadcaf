@@ -73,6 +73,7 @@ DEVICE_PACKAGE_OVERLAYS := vendor/$VENDOR/$DEVICE/overlay
 # Apps
 PRODUCT_PACKAGES += \\
     PPPreference \\
+    QuickBoot \\
     qcrilmsgtunnel \\
     shutdownlistener \\
     TimeService \\
@@ -151,6 +152,16 @@ include \$(BUILD_PREBUILT)
 
 include \$(CLEAR_VARS)
 LOCAL_MODULE := PPPreference
+LOCAL_MODULE_OWNER := $VENDOR
+LOCAL_SRC_FILES := app/\$(LOCAL_MODULE)/\$(LOCAL_MODULE).apk
+LOCAL_MODULE_CLASS := APPS
+LOCAL_MODULE_TAGS := optional
+LOCAL_CERTIFICATE := platform
+LOCAL_MODULE_SUFFIX := \$(COMMON_ANDROID_PACKAGE_SUFFIX)
+include \$(BUILD_PREBUILT)
+
+include \$(CLEAR_VARS)
+LOCAL_MODULE := QuickBoot
 LOCAL_MODULE_OWNER := $VENDOR
 LOCAL_SRC_FILES := app/\$(LOCAL_MODULE)/\$(LOCAL_MODULE).apk
 LOCAL_MODULE_CLASS := APPS
