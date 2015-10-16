@@ -157,11 +157,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.audio.fluence.audiorec=true \
     audio.offload.buffer.size.kb=32 \
     audio.offload.gapless.enabled=true \
-    av.offload.enable=true \
-    av.streaming.offload.enable=true \
+    audio.offload.video=true \
     audio.offload.pcm.16bit.enable=true \
-    audio.offload.pcm.24bit.enable=true \
-    tunnel.audio.encode=true
+    audio.offload.pcm.24bit.enable=true
 
 # Audio effects
 PRODUCT_PACKAGES += \
