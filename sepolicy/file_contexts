@@ -1,11 +1,6 @@
 ###################################
 # Dev nodes
 #
-/dev/block/platform/msm_sdcc\.1/by-name/modemst1                    u:object_r:modem_efs_partition_device:s0
-/dev/block/platform/msm_sdcc\.1/by-name/modemst2                    u:object_r:modem_efs_partition_device:s0
-/dev/block/platform/msm_sdcc\.1/by-name/fsc                         u:object_r:modem_efs_partition_device:s0
-/dev/block/platform/msm_sdcc\.1/by-name/fsg                         u:object_r:modem_efs_partition_device:s0
-/dev/block/platform/msm_sdcc\.1/by-name/ssd                         u:object_r:ssd_device:s0
 /dev/bcm2079x                                                       u:object_r:nfc_device:s0
 /dev/gss                                                            u:object_r:sensors_device:s0
 /dev/socket/mpdecision(/.*)?                                        u:object_r:mpctl_socket:s0
@@ -18,7 +13,6 @@
 /dev/smdcntl[0-9]                                                   u:object_r:radio_device:s0
 /dev/smd([0-9])+                                                    u:object_r:smd_device:s0
 /dev/smd_sns_.*                                                     u:object_r:sensors_device:s0
-#/dev/video([0-9])+                                                  u:object_r:camera_device:s0
 /dev/video.*                                                        u:object_r:camera_device:s0
 
 ###################################
@@ -44,6 +38,7 @@
 /data/fdAlbum                                   u:object_r:camera_data_file:s0
 /data/misc/playready(/.*)?                      u:object_r:drm_data_file:s0
 /data/system/time(/.*)?                         u:object_r:time_data_file:s0
+/data/tombstones/ramdump(/.*)?                  u:object_r:ramdump_data_file:s0
 
 ###################################
 # persist files
@@ -53,4 +48,3 @@
 /persist/playready(/.*)?                        u:object_r:persist_drm_file:s0
 /persist/widevine(/.*)?                         u:object_r:persist_drm_file:s0
 /persist/wifi(/.*)?                             u:object_r:persist_wifi_file:s0
-/data/tombstones/ramdump(/.*)?                  u:object_r:ramdump_data_file:s0
