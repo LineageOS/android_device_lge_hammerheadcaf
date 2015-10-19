@@ -1,3 +1,0 @@
-allow thermal-engine thermald_socket:sock_file create_file_perms;
-
-allow thermal-engine mpctl_socket:dir search;
