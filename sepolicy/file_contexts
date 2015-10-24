@@ -1,4 +1,9 @@
 ###################################
+# Dev block nodes
+#
+/dev/block/platform/msm_sdcc\.1/by-name/cache                       u:object_r:modem_efs_partition_device:s0
+
+###################################
 # Dev nodes
 #
 /dev/bcm2079x                                                       u:object_r:nfc_device:s0
