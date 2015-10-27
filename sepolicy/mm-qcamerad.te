@@ -1,6 +1,10 @@
 type_transition mm-qcamerad system_data_file:file camera_data_file "fdAlbum";
 allow mm-qcamerad camera_data_file:file create_file_perms;
 
+type_transition mm-qcamerad system_data_file:dir camera_socket "cam_socket1";
+type_transition mm-qcamerad system_data_file:dir camera_socket "cam_socket2";
+allow mm-qcamerad system_data_file:dir w_dir_perms;
+
 # Connect to sensor socket (/data/app/sensor_ctl_socket)
 allow mm-qcamerad apk_data_file:dir r_dir_perms;
 
