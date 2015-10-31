@@ -450,7 +450,8 @@ static int hwc_setPowerMode(struct hwc_composer_device_1* dev, int dpy,
     // Ideally, we should get an explicit blank on the virtual display
     // or, the blank frames when the virtual display is blanking should
     // be sent _before_ the primary is unblanked
-    if (dpy == HWC_DISPLAY_PRIMARY && not (mode == HWC_POWER_MODE_OFF)) {
+    if (dpy == HWC_DISPLAY_PRIMARY && not (mode == HWC_POWER_MODE_OFF ||
+                mode == HWC_POWER_MODE_NORMAL)) {
         ctx->mOverlay->configBegin();
         ctx->mOverlay->configDone();
         ctx->mRotMgr->clear();
