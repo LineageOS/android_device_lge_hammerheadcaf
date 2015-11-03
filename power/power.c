@@ -244,12 +244,17 @@ int __attribute__ ((weak)) set_interactive_override(
     return HINT_NONE;
 }
 
+int __attribute__ ((weak)) get_number_of_profiles()
+{
+    return 0;
+}
+
 void set_interactive(struct power_module *module, int on)
 {
     char governor[80];
     char tmp_str[NODE_MAX];
     struct video_encode_metadata_t video_encode_metadata;
-    int rc;
+    int rc = 0;
     int tmp;
 
     pthread_mutex_lock(&hint_mutex);
@@ -482,6 +487,18 @@ out:
     pthread_mutex_unlock(&hint_mutex);
 }
 
+void set_feature(struct power_module *module __unused, feature_t feature, int state)
+{
+}
+
+int get_feature(struct power_module *module __unused, feature_t feature)
+{
+    if (feature == POWER_FEATURE_SUPPORTED_PROFILES) {
+        return get_number_of_profiles();
+    }
+    return -1;
+}
+
 struct power_module HAL_MODULE_INFO_SYM = {
     .common = {
         .tag = HARDWARE_MODULE_TAG,
@@ -496,4 +513,6 @@ struct power_module HAL_MODULE_INFO_SYM = {
     .init = power_init,
     .powerHint = power_hint,
     .setInteractive = set_interactive,
+    .setFeature = set_feature,
+    .getFeature = get_feature
 };
