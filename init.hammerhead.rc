@@ -36,6 +36,7 @@ on init
 
 on fs
     mount_all ./fstab.hammerhead
+    swapon_all ./fstab.hammerhead
     restorecon_recursive /persist
 
 on early-boot
