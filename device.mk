@@ -238,6 +238,11 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libtinyxml
 
+# limit dex2oat threads to improve thermals
+PRODUCT_PROPERTY_OVERRIDES += \
+    dalvik.vm.dex2oat-threads=2 \
+    dalvik.vm.image-dex2oat-threads=4
+
 # I/O Scheduler
 PRODUCT_PROPERTY_OVERRIDES += \
     sys.io.scheduler=cfq
