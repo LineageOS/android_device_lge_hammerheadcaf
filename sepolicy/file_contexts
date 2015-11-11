@@ -35,7 +35,6 @@
 # data files
 #
 /data/cam_socket[0-9]                           u:object_r:camera_socket:s0
-/data/fdAlbum                                   u:object_r:camera_data_file:s0
 /data/misc/playready(/.*)?                      u:object_r:drm_data_file:s0
 /data/system/time(/.*)?                         u:object_r:time_data_file:s0
 /data/tombstones/ramdump(/.*)?                  u:object_r:ramdump_data_file:s0
