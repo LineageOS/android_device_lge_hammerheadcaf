@@ -55,7 +55,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/bcmdhd.cal:system/etc/wifi/bcmdhd.cal
 
 PRODUCT_COPY_FILES += \
-    device/lge/hammerhead/bluetooth/BCM4339_003.001.009.0079.0339.hcd:$(TARGET_COPY_OUT_VENDOR)/firmware/bcm4335c0.hcd
+    device/lge/hammerheadcaf/bluetooth/BCM4339_003.001.009.0079.0339.hcd:$(TARGET_COPY_OUT_VENDOR)/firmware/bcm4335c0.hcd
 
 # These are the hardware-specific features
 PRODUCT_COPY_FILES += \
