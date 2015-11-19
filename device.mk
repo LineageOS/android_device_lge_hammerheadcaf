@@ -112,11 +112,6 @@ PRODUCT_PACKAGES := \
     wpa_supplicant \
     wpa_supplicant.conf
 
-# Live Wallpapers
-PRODUCT_PACKAGES += \
-    LiveWallpapersPicker \
-    librs_jni
-
 # Graphics
 PRODUCT_PACKAGES += \
     copybit.msm8974 \
