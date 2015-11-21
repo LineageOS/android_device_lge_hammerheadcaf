@@ -1,5 +1,0 @@
-# Allow reads/writes to modem related block devices
-allow rmt_storage ssd_device:blk_file rw_file_perms;
-
-# Wake lock access
-wakelock_use(rmt_storage)

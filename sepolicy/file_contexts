@@ -21,7 +21,6 @@
 /system/bin/bdAddrLoader                        u:object_r:bluetooth_loader_exec:s0
 /system/bin/bridgemgrd                          u:object_r:bridge_exec:s0
 /system/bin/thermal-engine-hh                   u:object_r:thermal-engine_exec:s0
-/system/vendor/bin/vss_init                     u:object_r:vss_exec:s0
 
 ###################################
 # sysfs files

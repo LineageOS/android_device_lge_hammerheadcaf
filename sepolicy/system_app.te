@@ -1,5 +1,0 @@
-allow system_app ctl_default_prop:property_service set;
-
-userdebug_or_eng(`
-  allow system_app debugfs:file r_file_perms;
-')

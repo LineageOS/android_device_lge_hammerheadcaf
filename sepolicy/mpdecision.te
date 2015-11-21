@@ -1,13 +1,3 @@
-# Also support mpdecision creating the /dev/socket/pb socket
-type_transition mpdecision socket_device:sock_file mpctl_socket;
-allow mpdecision socket_device:dir w_dir_perms;
-allow mpdecision mpctl_socket:sock_file create_file_perms;
-
-allow mpdecision self:capability sys_nice;
-
 allow mpdecision sysfs_mpdecision:dir r_dir_perms;
 
-# This is needed to allow mpdecision to look at system_server's
-# /proc/PID/status file.
-r_dir_file(mpdecision, system_server)
 r_dir_file(mpdecision, mediaserver)
