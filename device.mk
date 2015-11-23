@@ -370,7 +370,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.input.noresample=1
 
 PRODUCT_PROPERTY_OVERRIDES += \
-    dalvik.vm.dex2oat-swap=false
+    dalvik.vm.dex2oat-swap=false \
+    dalvik.vm.heapminfree=2m
 
 # Modem debugger
 ifneq (,$(filter userdebug eng, $(TARGET_BUILD_VARIANT)))
