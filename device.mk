@@ -247,7 +247,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.sf.lcd_density=480
 
 PRODUCT_PROPERTY_OVERRIDES += \
-    persist.hwc.mdpcomp.enable=true
+    persist.hwc.mdpcomp.enable=true \
+    persist.mdpcomp_perfhint=50
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.hwui.texture_cache_size=72 \
