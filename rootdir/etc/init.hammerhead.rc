@@ -203,7 +203,7 @@ on property:persist.sys.ssr.enable_ramdumps=0
 service rmt_storage /system/bin/rmt_storage
     class core
     user root
-    group system
+    group system wakelock
 
 service bridgemgrd /system/bin/bridgemgrd
     class main
@@ -214,7 +214,7 @@ service bridgemgrd /system/bin/bridgemgrd
 service qmuxd /system/bin/qmuxd
     class main
     user radio
-    group radio audio bluetooth gps
+    group radio audio bluetooth wakelock gps
 
 service netmgrd /system/bin/netmgrd
     class main
@@ -224,7 +224,7 @@ service netmgrd /system/bin/netmgrd
 service sensors /system/bin/sensors.qcom
     class main
     user root
-    group root
+    group root wakelock
 
 service irsc_util /system/bin/irsc_util "/etc/sec_config"
     class main
