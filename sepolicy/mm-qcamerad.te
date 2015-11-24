@@ -1,3 +1,5 @@
+type_transition mm-qcamerad system_data_file:file camera_data_file "fdAlbum";
+
 type_transition mm-qcamerad system_data_file:dir camera_socket "cam_socket1";
 type_transition mm-qcamerad system_data_file:dir camera_socket "cam_socket2";
 allow mm-qcamerad system_data_file:dir w_dir_perms;
