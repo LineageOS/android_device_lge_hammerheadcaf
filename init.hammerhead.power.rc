@@ -104,6 +104,8 @@ on property:init.svc.bootanim=stopped
     write /sys/module/cpu_boost/parameters/input_boost_ms 500
     write /sys/module/cpu_boost/parameters/load_based_syncs 1
     write /sys/module/cpu_boost/parameters/migration_load_threshold 20
+    chown system system /sys/module/cpu_boost/parameters/input_boost_ms
+    chmod 664 /sys/module/cpu_boost/parameters/input_boost_ms
 
     # devfreq
     write /sys/class/devfreq/qcom,cpubw.41/governor cpubw_hwmon
