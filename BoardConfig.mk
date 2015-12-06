@@ -151,3 +151,6 @@ BOARD_HARDWARE_CLASS := device/lge/hammerheadcaf/cmhw
 
 # Include an expanded selection of fonts
 EXTENDED_FONT_FOOTPRINT := true
+
+#Disable Building Of Keymaster
+TARGET_PROVIDES_KEYMASTER := false
