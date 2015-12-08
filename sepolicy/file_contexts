@@ -41,7 +41,6 @@
 ###################################
 # persist files
 #
-/persist/bluetooth(/.*)?                        u:object_r:persist_bluetooth_file:s0
 /persist/camera_calibration(/.*)?               u:object_r:persist_camera_file:s0
 /persist/playready(/.*)?                        u:object_r:persist_drm_file:s0
 /persist/widevine(/.*)?                         u:object_r:persist_drm_file:s0

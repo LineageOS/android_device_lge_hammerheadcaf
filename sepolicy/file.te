@@ -3,7 +3,6 @@ type thermald_socket, file_type;
 type ramdump_data_file, file_type, data_file_type;
 
 # Persist firmware types
-type persist_bluetooth_file, file_type;
 type persist_camera_file, file_type;
 type persist_wifi_file, file_type;
 
