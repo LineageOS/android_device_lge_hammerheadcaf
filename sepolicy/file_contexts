@@ -25,10 +25,12 @@
 ###################################
 # sysfs files
 #
-/sys/class/android_usb/f_rmnet_smd_sdio/transport                    -- u:object_r:sysfs_rmnet:s0
-/sys/devices/virtual/android_usb/android0/f_rmnet_smd_sdio/transport -- u:object_r:sysfs_rmnet:s0
-/sys/devices/platform/bluetooth_rfkill/rfkill/rfkill0/state          -- u:object_r:sysfs_bluetooth_writable:s0
-/sys/devices/virtual/timed_output/vibrator/amp                       -- u:object_r:sysfs_hardware:s0
+/sys/class/android_usb/f_rmnet_smd_sdio/transport                       u:object_r:sysfs_rmnet:s0
+/sys/devices/virtual/android_usb/android0/f_rmnet_smd_sdio/transport    u:object_r:sysfs_rmnet:s0
+/sys/devices/platform/bluetooth_rfkill/rfkill/rfkill0/state             u:object_r:sysfs_bluetooth_writable:s0
+/sys/devices/virtual/timed_output/vibrator/amp                          u:object_r:sysfs_hardware:s0
+/sys/devices/fdb00000\.qcom,kgsl-3d0/kgsl/kgsl-3d0/gpuclk               u:object_r:sysfs_thermal:s0
+/sys/devices/fdb00000\.qcom,kgsl-3d0/kgsl/kgsl-3d0/max_gpuclk           u:object_r:sysfs_thermal:s0
 
 ###################################
 # data files
