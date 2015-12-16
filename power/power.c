@@ -57,8 +57,6 @@ static int saved_mpdecision_slack_min = -1;
 static int saved_interactive_mode = -1;
 static int slack_node_rw_failed = 0;
 static int display_hint_sent;
-static int go_hispeed_load = 0;
-static int off_hispeed_load = 110;
 static int input_boost_ms = 0;
 static int off_input_boost_ms = 0;
 int display_boost;
@@ -286,7 +284,7 @@ void set_interactive(struct power_module *module, int on)
             }
         } else if ((strncmp(governor, INTERACTIVE_GOVERNOR, strlen(INTERACTIVE_GOVERNOR)) == 0) &&
                 (strlen(governor) == strlen(INTERACTIVE_GOVERNOR))) {
-            int resource_values[] = {TR_MS_50, THREAD_MIGRATION_SYNC_OFF};
+            int resource_values[] = {TR_MS_50, HISPEED_LOAD_110, THREAD_MIGRATION_SYNC_OFF};
 
             if (!display_hint_sent) {
                 perform_hint_action(DISPLAY_STATE_HINT_ID,
@@ -294,19 +292,6 @@ void set_interactive(struct power_module *module, int on)
                 display_hint_sent = 1;
             }
 
-            if (!sysfs_read(GO_HISPEED_LOAD_PATH, tmp_str, NODE_MAX - 1)) {
-                tmp = atoi(tmp_str);
-                if (!go_hispeed_load || (go_hispeed_load != tmp && off_hispeed_load != tmp)) {
-                    go_hispeed_load = tmp;
-                }
-
-                snprintf(tmp_str, NODE_MAX, "%d", off_hispeed_load);
-                sysfs_write(GO_HISPEED_LOAD_PATH, tmp_str);
-            } else {
-                ALOGE("Failed to read %s", GO_HISPEED_LOAD_PATH);
-
-                rc = 1;
-            }
         } else if ((strncmp(governor, MSMDCVS_GOVERNOR, strlen(MSMDCVS_GOVERNOR)) == 0) &&
                 (strlen(governor) == strlen(MSMDCVS_GOVERNOR))) {
             if (saved_interactive_mode == 1){
@@ -428,19 +413,6 @@ void set_interactive(struct power_module *module, int on)
             undo_hint_action(DISPLAY_STATE_HINT_ID);
             display_hint_sent = 0;
 
-            if (!sysfs_read(GO_HISPEED_LOAD_PATH, tmp_str, NODE_MAX - 1)) {
-                tmp = atoi(tmp_str);
-                if (!go_hispeed_load || (go_hispeed_load != tmp && off_hispeed_load != tmp)) {
-                    go_hispeed_load = tmp;
-                }
-
-                snprintf(tmp_str, NODE_MAX, "%d", go_hispeed_load);
-                sysfs_write(GO_HISPEED_LOAD_PATH, tmp_str);
-            } else {
-                ALOGE("Failed to read %s", GO_HISPEED_LOAD_PATH);
-
-                rc = 1;
-            }
         } else if ((strncmp(governor, MSMDCVS_GOVERNOR, strlen(MSMDCVS_GOVERNOR)) == 0) && 
                 (strlen(governor) == strlen(MSMDCVS_GOVERNOR))) {
             if (saved_interactive_mode == -1 || saved_interactive_mode == 0) {
