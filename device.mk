@@ -183,13 +183,16 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/audio_platform_info.xml:system/etc/audio_platform_info.xml \
     $(LOCAL_PATH)/mixer_paths.xml:system/etc/mixer_paths.xml
 
+
+# Camera
 PRODUCT_PACKAGES += \
     libqomx_core \
     libmmcamera_interface \
     libmmjpeg_interface \
     camera.hammerhead \
     mm-jpeg-interface-test \
-    mm-qcamera-app
+    mm-qcamera-app \
+    Snap
 
 PRODUCT_PACKAGES += \
     keystore.msm8974
