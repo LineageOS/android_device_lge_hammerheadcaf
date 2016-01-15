@@ -2252,7 +2252,7 @@ void MDPComp::setPerfHint(hwc_context_t *ctx, hwc_display_contents_1_t* list) {
         sPerfLockHandle = sPerfLockAcquire(0 /*handle*/, 0/*duration*/,
                                     &perfHint, sizeof(perfHint)/sizeof(int));
         if(sPerfLockHandle < 0) {
-            ALOGE("Perf Lock Acquire Failed");
+            ALOGD_IF(isDebug(), "%s: Perf Lock Acquire Failed", __FUNCTION__);
         } else {
             perflockFlag = 1;
         }
