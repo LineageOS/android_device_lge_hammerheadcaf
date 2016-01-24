@@ -110,4 +110,7 @@ on property:init.svc.bootanim=stopped
     # devfreq
     write /sys/class/devfreq/qcom,cpubw.41/governor cpubw_hwmon
 
+    # i/o scheduler
+    setprop sys.io.scheduler "cfq"
+
     start mpdecision
