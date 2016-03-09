@@ -171,7 +171,6 @@
 /system/vendor/lib/libFuzzmmstillomxenc.so
 /system/vendor/lib/libgeofence.so
 /system/vendor/lib/libgsl.so
--/system/vendor/lib/libHevcSwDecoder.so
 /system/vendor/lib/libI420colorconvert.so
 /system/vendor/lib/libidl.so
 /system/vendor/lib/libizat_core.so
@@ -203,11 +202,6 @@
 /system/vendor/lib/libmmqjpeg_codec.so
 /system/vendor/lib/libnetmgr.so
 /system/vendor/lib/liboemcamera.so
-/system/vendor/lib/libOmxAacDec.so
-/system/vendor/lib/libOmxAmrwbplusDec.so
-/system/vendor/lib/libOmxEvrcDec.so
-/system/vendor/lib/libOmxQcelp13Dec.so
-/system/vendor/lib/libOmxWmaDec.so
 /system/vendor/lib/libOpenCL.so
 /system/vendor/lib/libqcci_legacy.so
 /system/vendor/lib/libqc-opt.so
