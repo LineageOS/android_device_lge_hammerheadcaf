@@ -166,7 +166,7 @@ int power_hint_override(__attribute__((unused)) struct power_module *module,
         previous_boost_time = cur_boost_time;
 
         int resources[] = { (duration >= 2000 ? CPUS_ONLINE_MIN_3 : CPUS_ONLINE_MIN_2),
-            0x20F, 0x30F, 0x40F, 0x50F };
+            0x20B, 0x30B, 0x40B, 0x50B };
 
         if (duration)
             interaction(duration, sizeof(resources)/sizeof(resources[0]), resources);
