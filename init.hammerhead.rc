@@ -19,7 +19,6 @@ import init.hammerhead.diag.rc
 import init.hammerhead.power.rc
 
 on early-init
-    mount debugfs debugfs /sys/kernel/debug
     chown system system /sys/kernel/debug/kgsl/proc
 
     # Enable device specific features
