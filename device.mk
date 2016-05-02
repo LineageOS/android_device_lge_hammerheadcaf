@@ -236,6 +236,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     HammerheadDoze
 
+# Gello
+PRODUCT_PACKAGES += \
+    Gello
+
 # Recovery
 PRODUCT_PACKAGES += \
     librecovery_updater_hammerhead
