@@ -109,6 +109,20 @@ on property:init.svc.bootanim=stopped
 
     # devfreq
     write /sys/class/devfreq/qcom,cpubw.41/governor cpubw_hwmon
+    write /sys/class/devfreq/qcom,cpubw.41/polling_interval 50
+    write /sys/class/devfreq/qcom,cpubw.41/cpubw_hwmon/mbps_zones "381 762 2342 6103 7102"
+    write /sys/class/devfreq/qcom,cpubw.41/cpubw_hwmon/sample_ms 4
+    write /sys/class/devfreq/qcom,cpubw.41/cpubw_hwmon/io_percent 34
+    write /sys/class/devfreq/qcom,cpubw.41/cpubw_hwmon/bw_step 95
+    write /sys/class/devfreq/qcom,cpubw.41/cpubw_hwmon/hist_memory 20
+    write /sys/class/devfreq/qcom,cpubw.41/cpubw_hwmon/hyst_length 10
+    write /sys/class/devfreq/qcom,cpubw.41/cpubw_hwmon/low_power_ceil_mbps 0
+    write /sys/class/devfreq/qcom,cpubw.41/cpubw_hwmon/low_power_io_percent 34
+    write /sys/class/devfreq/qcom,cpubw.41/cpubw_hwmon/low_power_delay 20
+    write /sys/class/devfreq/qcom,cpubw.41/cpubw_hwmon/guard_band_mbps 0
+    write /sys/class/devfreq/qcom,cpubw.41/cpubw_hwmon/up_scale 250
+    write /sys/class/devfreq/qcom,cpubw.41/cpubw_hwmon/idle_mbps 400
+    write /sys/class/devfreq/qcom,cpubw.41/cpubw_hwmon/min_mbps 250
 
     # i/o scheduler
     setprop sys.io.scheduler "cfq"
