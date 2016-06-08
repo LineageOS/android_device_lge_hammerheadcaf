@@ -48,6 +48,11 @@
 #include "performance.h"
 #include "power-common.h"
 
+#define USINSEC 1000000L
+#define NSINUS 1000L
+
+static struct timespec s_previous_boost_timespec;
+
 static int display_hint_sent;
 static int display_hint2_sent;
 static int first_display_off_hint;
@@ -104,6 +109,13 @@ static void set_power_profile(int profile) {
     current_power_profile = profile;
 }
 
+static long long calc_timespan_us(struct timespec start, struct timespec end) {
+    long long diff_in_us = 0;
+    diff_in_us += (end.tv_sec - start.tv_sec) * USINSEC;
+    diff_in_us += (end.tv_nsec - start.tv_nsec) / NSINUS;
+    return diff_in_us;
+}
+
 extern void interaction(int duration, int num_args, int opt_list[]);
 
 int power_hint_override(__attribute__((unused)) struct power_module *module,
@@ -143,7 +155,6 @@ int power_hint_override(__attribute__((unused)) struct power_module *module,
 
     if (hint == POWER_HINT_INTERACTION) {
         int duration = 500, duration_hint = 0;
-        static unsigned long long previous_boost_time = 0;
 
         if (data) {
             duration_hint = *((int *)data);
@@ -151,10 +162,10 @@ int power_hint_override(__attribute__((unused)) struct power_module *module,
 
         duration = duration_hint > 0 ? duration_hint : 500;
 
-        struct timeval cur_boost_timeval = {0, 0};
-        gettimeofday(&cur_boost_timeval, NULL);
-        unsigned long long cur_boost_time = cur_boost_timeval.tv_sec * 1000000 + cur_boost_timeval.tv_usec;
-        double elapsed_time = (double)(cur_boost_time - previous_boost_time);
+        struct timespec cur_boost_timespec;
+        clock_gettime(CLOCK_MONOTONIC, &cur_boost_timespec);
+        long long elapsed_time = calc_timespan_us(s_previous_boost_timespec, cur_boost_timespec);
+
         if (elapsed_time > 750000)
             elapsed_time = 750000;
         // don't hint if it's been less than 250ms since last boost
@@ -163,7 +174,7 @@ int power_hint_override(__attribute__((unused)) struct power_module *module,
         else if (elapsed_time < 250000 && duration <= 750)
             return HINT_HANDLED;
 
-        previous_boost_time = cur_boost_time;
+        s_previous_boost_timespec = cur_boost_timespec;
 
         int resources[] = { (duration >= 2000 ? CPUS_ONLINE_MIN_3 : CPUS_ONLINE_MIN_2),
             0x20B, 0x30B, 0x40B, 0x50B };
