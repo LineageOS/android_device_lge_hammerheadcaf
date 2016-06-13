@@ -147,4 +147,6 @@ BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_23x41.h\"
 # Hardware
 BOARD_HARDWARE_CLASS := device/lge/hammerheadcaf/cmhw
 
+USE_CLANG_PLATFORM_BUILD := true
+
 -include vendor/lge/hammerheadcaf/BoardConfigVendor.mk
