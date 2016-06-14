@@ -1,5 +1,6 @@
 LOCAL_PATH:= $(call my-dir)
 
+include $(LOCAL_PATH)/../../common.mk
 include $(CLEAR_VARS)
 
 LOCAL_SRC_FILES := \
@@ -32,7 +33,10 @@ LOCAL_C_INCLUDES := \
         $(LOCAL_PATH)/../util
 
 LOCAL_C_INCLUDES += \
-        device/lge/hammerheadcaf/display/libgralloc
+        $(call project-path-for,qcom-display)/libgralloc
+
+LOCAL_C_INCLUDES += $(kernel_includes)
+LOCAL_ADDITIONAL_DEPENDENCIES := $(common_deps)
 
 LOCAL_SHARED_LIBRARIES := libcamera_client liblog libhardware libutils libcutils libdl
 LOCAL_SHARED_LIBRARIES += libmmcamera_interface libmmjpeg_interface

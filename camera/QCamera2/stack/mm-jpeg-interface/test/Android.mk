@@ -1,6 +1,7 @@
 OLD_LOCAL_PATH := $(LOCAL_PATH)
 MM_JPEG_TEST_PATH := $(call my-dir)
 
+include $(LOCAL_PATH)/../../common.mk
 include $(CLEAR_VARS)
 LOCAL_PATH := $(MM_JPEG_TEST_PATH)
 LOCAL_MODULE_TAGS := optional
@@ -24,6 +25,8 @@ LOCAL_C_INCLUDES += $(OMX_HEADER_DIR)
 LOCAL_C_INCLUDES += $(OMX_CORE_DIR)/qexif
 LOCAL_C_INCLUDES += $(OMX_CORE_DIR)/qomx_core
 
+LOCAL_C_INCLUDES += $(kernel_includes)
+LOCAL_ADDITIONAL_DEPENDENCIES := $(common_deps)
 
 LOCAL_SRC_FILES := mm_jpeg_ionbuf.c
 LOCAL_SRC_FILES += mm_jpeg_test.c 
