@@ -75,7 +75,8 @@ PRODUCT_PACKAGES += \\
 
 # Libs
 PRODUCT_PACKAGES += \\
-    libmm-abl
+    libmm-abl \\
+    libuiblur
 
 \$(call inherit-product, vendor/$VENDOR/$DEVICE/$DEVICE-vendor-blobs.mk)
 EOF
@@ -123,6 +124,17 @@ ifeq (\$(TARGET_DEVICE),hammerheadcaf)
 
 include \$(CLEAR_VARS)
 LOCAL_MODULE := libmm-abl
+LOCAL_MODULE_OWNER := $VENDOR
+LOCAL_SRC_FILES := vendor/lib/\$(LOCAL_MODULE).so
+LOCAL_MODULE_CLASS := SHARED_LIBRARIES
+LOCAL_MODULE_TAGS := optional
+LOCAL_CERTIFICATE := platform
+LOCAL_MODULE_PATH := \$(TARGET_OUT_VENDOR_SHARED_LIBRARIES)
+LOCAL_MODULE_SUFFIX := .so
+include \$(BUILD_PREBUILT)
+
+include \$(CLEAR_VARS)
+LOCAL_MODULE := libuiblur
 LOCAL_MODULE_OWNER := $VENDOR
 LOCAL_SRC_FILES := vendor/lib/\$(LOCAL_MODULE).so
 LOCAL_MODULE_CLASS := SHARED_LIBRARIES

@@ -347,4 +347,8 @@
          don't support RIL_REQUEST_GET_RADIO_CAPABILITY
          format is UMTS|LTE|... -->
     <string translatable="false" name="config_radio_access_family">GSM | WCDMA | LTE | CDMA | EVDO</string>
+
+    <!-- Enable UI blur feature -->
+        <bool name="config_ui_blur_enabled">true</bool>
+
 </resources>
