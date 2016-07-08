@@ -85,7 +85,6 @@
 -/system/priv-app/OmaDmclient/OmaDmclient.apk
 -/system/priv-app/SprintHiddenMenu/SprintHiddenMenu.apk
 /system/vendor/bin/mm-pp-daemon
-/system/vendor/bin/perfd
 /system/vendor/bin/vss_init
 /system/vendor/firmware/a330_pfp.fw
 /system/vendor/firmware/a330_pm4.fw
