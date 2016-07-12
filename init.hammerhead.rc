@@ -102,16 +102,6 @@ on boot
     chmod 0664 /sys/devices/virtual/graphics/fb1/vendor_name
     chmod 0664 /sys/devices/virtual/graphics/fb1/product_description
 
-    # To allow interfaces to get v6 address when tethering is enabled
-    write /proc/sys/net/ipv6/conf/rmnet0/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet1/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet2/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet3/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet4/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet5/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet6/accept_ra 2
-    write /proc/sys/net/ipv6/conf/rmnet7/accept_ra 2
-
     # Subsytem Restart
     #adsp
     write /sys/bus/msm_subsys/devices/subsys0/restart_level "related"
