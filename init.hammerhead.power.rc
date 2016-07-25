@@ -31,7 +31,7 @@ on boot
     write /sys/module/msm_thermal/core_control/enabled 1
 
 on early-init
-    write /sys/block/mmcblk0/bdi/read_ahead_kb 512
+    write /sys/block/mmcblk0/bdi/read_ahead_kb 128
     write /sys/class/mmc_host/mmc0/clk_scaling/scale_down_in_low_wr_load 1
 
 on property:service.bootanim.exit=1
@@ -126,6 +126,9 @@ on property:init.svc.bootanim=stopped
 
     # i/o scheduler
     setprop sys.io.scheduler "cfq"
+
+    # block
+    write /sys/block/mmcblk0/bdi/read_ahead_kb 512
 
     rm /data/system/perfd/default_values
     start mpdecision
