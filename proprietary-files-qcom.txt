@@ -14,13 +14,8 @@
 
 -app/PPPreference/PPPreference.apk
 -app/QuickBoot/QuickBoot.apk
--app/qcrilmsgtunnel/qcrilmsgtunnel.apk
--app/shutdownlistener/shutdownlistener.apk
--app/TimeService/TimeService.apk
--app/UpdateSetting/UpdateSetting.apk
 bin/mpdecision
 bin/qseecomd
-framework/qcrilhook.jar
 -priv-app/OmaDmclient/OmaDmclient.apk
 -priv-app/SprintHiddenMenu/SprintHiddenMenu.apk
 vendor/bin/mm-pp-daemon

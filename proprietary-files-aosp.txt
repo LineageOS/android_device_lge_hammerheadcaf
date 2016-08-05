@@ -12,6 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+-app/qcrilmsgtunnel/qcrilmsgtunnel.apk
+-app/shutdownlistener/shutdownlistener.apk
+-app/TimeService/TimeService.apk
+-app/UpdateSetting/UpdateSetting.apk
 bin/bridgemgrd
 bin/diag_klog
 bin/diag_mdlog
@@ -46,6 +50,7 @@ etc/permissions/qcrilhook.xml
 etc/permissions/serviceitems.xml
 etc/qcril.db
 etc/sensor_def_hh.conf
+framework/qcrilhook.jar
 framework/serviceitems.jar
 lib/hw/flp.msm8974.so
 lib/hw/gps.msm8974.so
