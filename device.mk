@@ -222,10 +222,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     lights.hammerhead
 
-# for off charging mode
-PRODUCT_PACKAGES += \
-    charger_res_images
-
 PRODUCT_PACKAGES += \
     bdAddrLoader
 
