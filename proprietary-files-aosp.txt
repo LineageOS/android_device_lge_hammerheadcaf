@@ -76,6 +76,8 @@ lib/liboemcrypto.so
 lib/libril-qc-qmi-1.so
 lib/libstagefright_hdcp.so
 lib/libxml.so
+-priv-app/OmaDmclient/OmaDmclient.apk
+-priv-app/SprintHiddenMenu/SprintHiddenMenu.apk
 vendor/bin/vss_init
 vendor/firmware/a330_pfp.fw
 vendor/firmware/a330_pm4.fw
