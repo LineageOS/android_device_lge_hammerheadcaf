@@ -139,6 +139,4 @@ USE_DEVICE_SPECIFIC_CAMERA:= true
 # Hardware
 BOARD_HARDWARE_CLASS := device/lge/hammerheadcaf/cmhw
 
-USE_CLANG_PLATFORM_BUILD := true
-
 -include vendor/lge/hammerheadcaf/BoardConfigVendor.mk
