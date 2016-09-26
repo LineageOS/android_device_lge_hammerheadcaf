@@ -107,9 +107,10 @@ BOARD_CHARGER_ENABLE_SUSPEND := true
 
 TARGET_RECOVERY_FSTAB = device/lge/hammerheadcaf/fstab.hammerhead
 
-# Releasetools
+# Recovery
 TARGET_RECOVERY_UPDATER_LIBS := librecovery_updater_hammerhead
 TARGET_RELEASETOOLS_EXTENSIONS := device/lge/hammerheadcaf
+BOARD_NO_SECURE_DISCARD := true
 
 BOARD_HAL_STATIC_LIBRARIES := libdumpstate.hammerhead
 
