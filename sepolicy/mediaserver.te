@@ -1,5 +1,2 @@
 allow mediaserver mpdecision:unix_stream_socket connectto;
 allow mediaserver camera_device:dir search;
-
-# For text relocations in /system/vendor/lib/libmmjpeg.so
-allow mediaserver system_file:file execmod;
