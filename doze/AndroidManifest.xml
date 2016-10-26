@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.cyanogenmod.doze"
+    package="com.cyanogenmod.settings.doze"
     android:versionCode="1"
     android:versionName="1.0"
     android:sharedUserId="android.uid.system">
@@ -8,30 +8,38 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
-    <application android:label="HammerheadDoze"
-                 android:persistent="true">
+    <uses-sdk
+        android:minSdkVersion="21"
+        android:targetSdkVersion="21"/>
 
-        <receiver android:name="org.cyanogenmod.doze.hammerhead.BootCompletedReceiver">
+    <application
+        android:label="HammerheadDoze"
+        android:persistent="true">
+
+        <receiver android:name="com.cyanogenmod.settings.doze.BootCompletedReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
 
-        <service android:name="org.cyanogenmod.doze.hammerhead.DozeService"
+        <service android:name="com.cyanogenmod.settings.doze.DozeService"
                  android:permission="HammerheadDozeService">
         </service>
 
-        <activity android:name="HammerheadDoze"
-                  android:label="HammerheadDoze"
-                  android:excludeFromRecents="true"
-                  android:launchMode="singleInstance"
-                  android:screenOrientation="portrait"
-                  android:theme="@style/HammerheadDozeTheme"
-                  android:windowAnimationStyle="@null">
+        <activity
+            android:name=".DozeSettings"
+            android:label="@string/ambient_display_title"
+            android:theme="@android:style/Theme.Material.Settings">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="com.android.settings.action.EXTRA_SETTINGS" />
             </intent-filter>
+            <meta-data
+                android:name="com.android.settings.category"
+                android:value="com.android.settings.category.device" />
+            <meta-data
+                android:name="com.android.settings.icon"
+                android:resource="@drawable/ic_settings_doze" />
         </activity>
 
     </application>
