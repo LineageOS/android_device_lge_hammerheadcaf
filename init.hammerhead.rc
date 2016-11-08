@@ -284,7 +284,7 @@ service bdAddrLoader /system/bin/bdAddrLoader -f /persist/bluetooth/.bdaddr -h -
 service mpdecision /system/bin/mpdecision --avg_comp
    class main
    user root
-   group root system
+   group root system readproc
    disabled
 
 service ssr_ramdump /system/bin/subsystem_ramdump -m -t emmc

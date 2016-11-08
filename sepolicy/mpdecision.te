@@ -1,3 +1,5 @@
 allow mpdecision sysfs_mpdecision:dir r_dir_perms;
 
 r_dir_file(mpdecision, mediaserver)
+
+allow mpdecision mpctl_data_file:sock_file create_file_perms;

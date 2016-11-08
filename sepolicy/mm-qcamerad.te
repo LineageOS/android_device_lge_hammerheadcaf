@@ -10,3 +10,5 @@ allow mm-qcamerad sensors_socket:sock_file read;
 # Read camera files from persist filesystem
 allow mm-qcamerad persist_file:dir search;
 r_dir_file(mm-qcamerad, persist_camera_file)
+
+allow mm-qcamerad camera_device:chr_file rw_file_perms;
