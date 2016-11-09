@@ -158,14 +158,14 @@ Value * VerifyBasebandFn(const char *name, State *state, int argc, Expr *argv[])
 
     ret = get_baseband_version(current_baseband_version, BASEBAND_VER_BUF_LEN);
     if (ret) {
-        return ErrorAbort(state, "%s() failed to read current BASEBAND version: %d",
+        return ErrorAbort(state, kFreadFailure, "%s() failed to read current BASEBAND version: %d",
                 name, ret);
     }
 
     for (i = 1; i <= argc; i++) {
         ret = ReadArgs(state, argv, i, &baseband_version);
         if (ret < 0) {
-            return ErrorAbort(state, "%s() error parsing arguments: %d",
+            return ErrorAbort(state, kArgsParsingFailure, "%s() error parsing arguments: %d",
                 name, ret);
         }
 
