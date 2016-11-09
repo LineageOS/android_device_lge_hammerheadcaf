@@ -138,6 +138,9 @@ USE_DEVICE_SPECIFIC_CAMERA:= true
 
 TARGET_NEEDS_PLATFORM_TEXT_RELOCATIONS := true
 
+# Use Snapdragon LLVM, if available
+TARGET_USE_SDCLANG := true
+
 # Hardware
 BOARD_HARDWARE_CLASS := device/lge/hammerheadcaf/cmhw
 
