@@ -56,7 +56,7 @@ BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_BCM := true
 
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/lge/hammerheadcaf/bluetooth
-BOARD_BLUEDROID_VENDOR_CONF := device/lge/hammerheadcaf/bluetooth/vnd_hammerhead.txt
+BOARD_CUSTOM_BT_CONFIG := device/lge/hammerheadcaf/bluetooth/vnd_hammerhead.txt
 
 # Wifi related defines
 WPA_SUPPLICANT_VERSION      := VER_0_8_X
