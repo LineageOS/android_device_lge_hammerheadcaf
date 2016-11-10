@@ -358,7 +358,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Storage
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.sdcardfs.enable=true
+    ro.sys.sdcardfs=true
 
 # Modem debugger
 ifneq (,$(filter userdebug eng, $(TARGET_BUILD_VARIANT)))
