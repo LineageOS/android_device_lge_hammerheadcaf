@@ -3,7 +3,7 @@ allow cameraserver camera_socket:sock_file write;
 
 allow cameraserver system_file:file execmod;
 
-allow cameraserver mpctl_data_file:dir r_dir_perms;
-allow cameraserver mpctl_data_file:sock_file rw_file_perms;
+allow cameraserver mpctl_socket:dir r_dir_perms;
+allow cameraserver mpctl_socket:sock_file rw_file_perms;
 
 allow cameraserver mpdecision:unix_stream_socket connectto;

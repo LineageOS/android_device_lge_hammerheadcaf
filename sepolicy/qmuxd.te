@@ -7,8 +7,3 @@ allow qmuxd radio_device:chr_file rw_file_perms;
 
 # wake lock access
 wakelock_use(qmuxd)
-
-# diag access
-userdebug_or_eng(`
-  diag_use(qmuxd)
-')

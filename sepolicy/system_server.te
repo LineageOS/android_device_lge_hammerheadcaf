@@ -18,5 +18,5 @@ allow system_server sysfs_usb_supply:dir search;
 allow system_server sysfs_usb_supply:file r_file_perms;
 
 # Perfd
-allow system_server mpctl_data_file:dir r_dir_perms;
-allow system_server mpctl_data_file:sock_file rw_file_perms;
+allow system_server mpctl_socket:dir r_dir_perms;
+allow system_server mpctl_socket:sock_file rw_file_perms;
