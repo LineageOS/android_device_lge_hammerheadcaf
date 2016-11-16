@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2013 The Android Open-Source Project
+# Copyright (C) 2016 The CyanogenMod Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,32 +14,39 @@
 # limitations under the License.
 #
 
+PLATFORM_PATH := device/lge/hammerheadcaf
+
+# Platform
+TARGET_BOARD_PLATFORM := msm8974
+
+# Architecture
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
 TARGET_ARCH := arm
 TARGET_ARCH_VARIANT := armv7-a-neon
 TARGET_CPU_VARIANT := krait
 
-TARGET_NO_BOOTLOADER := true
+# Assertions
+TARGET_BOARD_INFO_FILE := $(PLATFORM_PATH)/board-info.txt
 
+# Bootloader
+TARGET_BOOTLOADER_BOARD_NAME := hammerhead
+TARGET_NO_BOOTLOADER := true
+TARGET_NO_RADIOIMAGE := true
+
+# Build
+TARGET_USE_SDCLANG := true
+
+# Kernel
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_PAGESIZE := 2048
-
-BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.hardware=hammerhead user_debug=31 msm_watchdog_v2.enable=1 mdss_mdp.panel=dsi androidboot.bootdevice=msm_sdcc.1
+BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.hardware=hammerhead user_debug=31 msm_watchdog_v2.enable=1 mdss_mdp.panel=dsi
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02900000 --tags_offset 0x02700000
 BOARD_KERNEL_IMAGE_NAME := zImage-dtb
+TARGET_KERNEL_SOURCE := kernel/lge/hammerhead
+TARGET_KERNEL_CONFIG := cyanogenmod_hammerhead_defconfig
 
-# Shader cache config options
-# Maximum size of the  GLES Shaders that can be cached for reuse.
-# Increase the size if shaders of size greater than 12KB are used.
-MAX_EGL_CACHE_KEY_SIZE := 12*1024
-
-# Maximum GLES shader cache size for each app to store the compiled shader
-# binaries. Decrease the size if RAM or Flash Storage size is a limitation
-# of the device.
-MAX_EGL_CACHE_SIZE := 2048*1024
-
-# QCOM hardware
+# QCOM Hardware
 BOARD_USES_QCOM_HARDWARE := true
 
 # Audio
@@ -49,14 +56,31 @@ AUDIO_FEATURE_ENABLED_LOW_LATENCY_CAPTURE := true
 AUDIO_FEATURE_ENABLED_NEW_SAMPLE_RATE := true
 USE_CUSTOM_AUDIO_POLICY := 1
 
-# Display
-TARGET_USES_DUAL_DSI_API := true
-
+# Bluetooth
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_BCM := true
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(PLATFORM_PATH)/bluetooth
+BOARD_CUSTOM_BT_CONFIG := $(PLATFORM_PATH)/bluetooth/vnd_hammerhead.txt
 
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/lge/hammerheadcaf/bluetooth
-BOARD_CUSTOM_BT_CONFIG := device/lge/hammerheadcaf/bluetooth/vnd_hammerhead.txt
+# Camera
+USE_DEVICE_SPECIFIC_CAMERA:= true
+
+# Charger
+BOARD_CHARGER_ENABLE_SUSPEND := true
+
+# CM Hardware
+BOARD_HARDWARE_CLASS := $(PLATFORM_PATH)/cmhw
+
+# Display
+USE_OPENGL_RENDERER := true
+TARGET_USES_ION := true
+TARGET_USES_DUAL_DSI_API := true
+HAVE_ADRENO_SOURCE:= false
+OVERRIDE_RS_DRIVER:= libRSDriver_adreno.so
+NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
+TARGET_FORCE_HWC_FOR_VIRTUAL_DISPLAYS := true
+MAX_EGL_CACHE_KEY_SIZE := 12*1024
+MAX_EGL_CACHE_SIZE := 2048*1024
 
 # Wifi related defines
 WPA_SUPPLICANT_VERSION      := VER_0_8_X
@@ -69,19 +93,10 @@ WIFI_DRIVER_FW_PATH_PARAM   := "/sys/module/bcmdhd/parameters/firmware_path"
 WIFI_DRIVER_FW_PATH_AP      := "/vendor/firmware/fw_bcmdhd_apsta.bin"
 WIFI_DRIVER_FW_PATH_STA     := "/vendor/firmware/fw_bcmdhd.bin"
 
-BOARD_USES_SECURE_SERVICES := true
-
-TARGET_NO_RADIOIMAGE := true
-TARGET_BOARD_PLATFORM := msm8974
-TARGET_BOOTLOADER_BOARD_NAME := hammerhead
-TARGET_BOARD_INFO_FILE := device/lge/hammerheadcaf/board-info.txt
+# GPS
 BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := $(TARGET_BOARD_PLATFORM)
 BOARD_VENDOR_QCOM_LOC_PDK_FEATURE_SET := true
 TARGET_NO_RPC := true
-
-USE_OPENGL_RENDERER := true
-NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
-TARGET_USES_ION := true
 
 # Enable dex-preoptimization to speed up first boot sequence
 ifeq ($(HOST_OS),linux)
@@ -93,56 +108,34 @@ ifeq ($(HOST_OS),linux)
 endif
 DONT_DEXPREOPT_PREBUILTS := true
 
-TARGET_USERIMAGES_USE_EXT4 := true
-TARGET_USERIMAGES_USE_F2FS := true
+# Partitions
 BOARD_BOOTIMAGE_PARTITION_SIZE := 23068672
+BOARD_CACHEIMAGE_PARTITION_SIZE := 734003200
+BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 23068672
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 1073741824
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 13725837312
-BOARD_CACHEIMAGE_PARTITION_SIZE := 734003200
-BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_FLASH_BLOCK_SIZE := 131072
 
-BOARD_CHARGER_ENABLE_SUSPEND := true
-
-TARGET_RECOVERY_FSTAB = device/lge/hammerheadcaf/fstab.hammerhead
-
-# Recovery
-TARGET_RECOVERY_UPDATER_LIBS := librecovery_updater_hammerhead
-TARGET_RELEASETOOLS_EXTENSIONS := device/lge/hammerheadcaf
-BOARD_NO_SECURE_DISCARD := true
-
-BOARD_HAL_STATIC_LIBRARIES := libdumpstate.hammerhead
-
-# Define kernel config for inline building
-TARGET_KERNEL_CONFIG := cyanogenmod_hammerhead_defconfig
-TARGET_KERNEL_SOURCE := kernel/lge/hammerhead
-
-# SELinux policies
-# QCOM
-include device/qcom/sepolicy/sepolicy.mk
-
-# Board
-BOARD_SEPOLICY_DIRS += device/lge/hammerheadcaf/sepolicy
-
-HAVE_ADRENO_SOURCE:= false
-
-OVERRIDE_RS_DRIVER:= libRSDriver_adreno.so
-TARGET_FORCE_HWC_FOR_VIRTUAL_DISPLAYS := true
-
-# Local QCOM PowerHAL
+# PowerHAL
 TARGET_POWERHAL_VARIANT := hammerhead
 
-USE_DEVICE_SPECIFIC_QCOM_PROPRIETARY:= true
-USE_DEVICE_SPECIFIC_CAMERA:= true
+# Quirks
+TARGET_NEEDS_PLATFORM_TEXT_RELOCATIONS := true
 TARGET_HAS_LEGACY_CAMERA_HAL1 := true
 
-TARGET_NEEDS_PLATFORM_TEXT_RELOCATIONS := true
+# Recovery
+TARGET_RECOVERY_FSTAB = $(PLATFORM_PATH)/rootdir/etc/fstab.hammerhead
+TARGET_RECOVERY_UPDATER_LIBS := librecovery_updater_hammerhead
+TARGET_RELEASETOOLS_EXTENSIONS := $(PLATFORM_PATH)/recovery
+TARGET_USERIMAGES_USE_EXT4 := true
+TARGET_USERIMAGES_USE_F2FS := true
+BOARD_NO_SECURE_DISCARD := true
 
-# Use Snapdragon LLVM, if available
-TARGET_USE_SDCLANG := true
+# SELinux
+include device/qcom/sepolicy/sepolicy.mk
 
-# Hardware
-BOARD_HARDWARE_CLASS := device/lge/hammerheadcaf/cmhw
+BOARD_SEPOLICY_DIRS += $(PLATFORM_PATH)/sepolicy
 
+# Include the proprietary setup
 -include vendor/lge/hammerheadcaf/BoardConfigVendor.mk
