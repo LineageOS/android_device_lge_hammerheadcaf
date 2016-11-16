@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2013 The Android Open-Source Project
+# Copyright (C) 2016 The CyanogenMod Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,50 +14,158 @@
 # limitations under the License.
 #
 
-# This file includes all definitions that apply to ALL hammerhead devices, and
-# are also specific to hammerhead devices
-#
-# Everything in this directory will become public
-
-
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/init.hammerhead.rc:root/init.hammerhead.rc \
-    $(LOCAL_PATH)/init.hammerhead.usb.rc:root/init.hammerhead.usb.rc \
-    $(LOCAL_PATH)/init.hammerhead.power.rc:root/init.hammerhead.power.rc \
-    $(LOCAL_PATH)/init.recovery.hammerhead.rc:root/init.recovery.hammerhead.rc \
-    $(LOCAL_PATH)/fstab.hammerhead:root/fstab.hammerhead \
-    $(LOCAL_PATH)/ueventd.hammerhead.rc:root/ueventd.hammerhead.rc
-
-# Input device files for hammerhead
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl \
-    $(LOCAL_PATH)/gpio-keys.kcm:system/usr/keychars/gpio-keys.kcm \
-    $(LOCAL_PATH)/qpnp_pon.kl:system/usr/keylayout/qpnp_pon.kl \
-    $(LOCAL_PATH)/qpnp_pon.kcm:system/usr/keychars/qpnp_pon.kcm \
-    $(LOCAL_PATH)/Button_Jack.kl:system/usr/keylayout/msm8974-taiko-mtp-snd-card_Button_Jack.kl \
-    $(LOCAL_PATH)/Button_Jack.kcm:system/usr/keychars/msm8974-taiko-mtp-snd-card_Button_Jack.kcm \
-    $(LOCAL_PATH)/hs_detect.kl:system/usr/keylayout/hs_detect.kl \
-    $(LOCAL_PATH)/hs_detect.kcm:system/usr/keychars/hs_detect.kcm
-
-# Prebuilt input device calibration files
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/touch_dev.idc:system/usr/idc/touch_dev.idc
+# Audio
+PRODUCT_PACKAGES += \
+    audiod \
+    audio_policy.msm8974 \
+    audio.primary.msm8974 \
+    audio.a2dp.default \
+    audio.usb.default \
+    audio.r_submix.default \
+    libqcomvisualizer \
+    libqcomvoiceprocessing \
+    libqcomvoiceprocessingdescriptors \
+    libqcompostprocbundle \
+    tinymix
 
 PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/audio/audio_effects.conf:system/vendor/etc/audio_effects.conf \
+    $(LOCAL_PATH)/audio/audio_policy.conf:system/etc/audio_policy.conf \
+    $(LOCAL_PATH)/audio/audio_platform_info.xml:system/etc/audio_platform_info.xml \
+    $(LOCAL_PATH)/audio/mixer_paths.xml:system/etc/mixer_paths.xml
+
+# Blutooth
+PRODUCT_PACKAGES += \
+    bdAddrLoader
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/bluetooth/BCM4339_003.001.009.0079.0339.hcd:$(TARGET_COPY_OUT_VENDOR)/firmware/bcm4335c0.hcd
+
+# Boot animation
+TARGET_SCREEN_HEIGHT := 1920
+TARGET_SCREEN_WIDTH := 1080
+TARGET_BOOTANIMATION_HALF_RES := true
+
+# Camera
+PRODUCT_PACKAGES += \
+    camera.hammerhead \
+    libqomx_core \
+    libmmcamera_interface \
+    libmmjpeg_interface \
+    mm-jpeg-interface-test \
+    mm-qcamera-app \
+    Snap
+
+# Dalvik/HWUI
+$(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
+$(call inherit-product, frameworks/native/build/phone-xxhdpi-2048-hwui-memory.mk)
+
+# Display
+PRODUCT_PACKAGES += \
+    copybit.msm8974 \
+    gralloc.msm8974 \
+    hwcomposer.msm8974 \
+    memtrack.msm8974 \
+    liboverlay
+
+PRODUCT_AAPT_CONFIG := normal
+PRODUCT_AAPT_PREF_CONFIG := xxhdpi
+
+# Doze mode
+PRODUCT_PACKAGES += \
+    HammerheadDoze
+
+# Gello
+PRODUCT_PACKAGES += \
+    Gello
+
+# GPS
+PRODUCT_PACKAGES += \
+    libloc_adapter \
+    libloc_eng \
+    libloc_api_v02 \
+    libloc_ds_api \
+    libloc_core \
+    libizat_core \
+    libgeofence \
+    libgps.utils \
+    gps.msm8974 \
+    flp.msm8974 \
+    liblbs_core \
+    flp.conf
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/gps/gps.conf:system/etc/gps.conf
+
+# IPC router config
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/sec_config:system/etc/sec_config
+
+# Keylayouts
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl \
+    $(LOCAL_PATH)/keylayout/gpio-keys.kcm:system/usr/keychars/gpio-keys.kcm \
+    $(LOCAL_PATH)/keylayout/qpnp_pon.kl:system/usr/keylayout/qpnp_pon.kl \
+    $(LOCAL_PATH)/keylayout/qpnp_pon.kcm:system/usr/keychars/qpnp_pon.kcm \
+    $(LOCAL_PATH)/keylayout/Button_Jack.kl:system/usr/keylayout/msm8974-taiko-mtp-snd-card_Button_Jack.kl \
+    $(LOCAL_PATH)/keylayout/Button_Jack.kcm:system/usr/keychars/msm8974-taiko-mtp-snd-card_Button_Jack.kcm \
+    $(LOCAL_PATH)/keylayout/hs_detect.kl:system/usr/keylayout/hs_detect.kl \
+    $(LOCAL_PATH)/keylayout/hs_detect.kcm:system/usr/keychars/hs_detect.kcm \
+    $(LOCAL_PATH)/keylayout/touch_dev.idc:system/usr/idc/touch_dev.idc
+
+# Keystore
+PRODUCT_PACKAGES += \
+    keystore.msm8974
+
+# Lights
+PRODUCT_PACKAGES += \
+    lights.hammerhead
+
+# Media
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/media_codecs.xml:system/etc/media_codecs.xml \
+    $(LOCAL_PATH)/configs/media_codecs_performance.xml:system/etc/media_codecs_performance.xml \
+    $(LOCAL_PATH)/configs/media_profiles.xml:system/etc/media_profiles.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
-    frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml \
-    $(LOCAL_PATH)/media_codecs.xml:system/etc/media_codecs.xml \
-    $(LOCAL_PATH)/media_codecs_performance.xml:system/etc/media_codecs_performance.xml \
-    $(LOCAL_PATH)/media_profiles.xml:system/etc/media_profiles.xml
+    frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml
+
+# Misc
+PRODUCT_CHARACTERISTICS := nosdcard
+
+PRODUCT_PACKAGES += \
+    libtinyxml
+
+# NFC
+PRODUCT_PACKAGES += \
+    nfc_nci.bcm2079x.default \
+    NfcNci \
+    Tag
 
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/bcmdhd.cal:system/etc/wifi/bcmdhd.cal
+    $(LOCAL_PATH)/configs/nfc/libnfc-brcm.conf:system/etc/libnfc-brcm.conf \
+    $(LOCAL_PATH)/configs/nfc/libnfc-brcm-20791b05.conf:system/etc/libnfc-brcm-20791b05.conf \
+    frameworks/native/data/etc/android.hardware.nfc.xml:system/etc/permissions/android.hardware.nfc.xml \
+    frameworks/native/data/etc/android.hardware.nfc.hce.xml:system/etc/permissions/android.hardware.nfc.hce.xml \
 
-PRODUCT_COPY_FILES += \
-    device/lge/hammerheadcaf/bluetooth/BCM4339_003.001.009.0079.0339.hcd:$(TARGET_COPY_OUT_VENDOR)/firmware/bcm4335c0.hcd
+# OMX
+PRODUCT_PACKAGES += \
+    libc2dcolorconvert \
+    libdivxdrmdecrypt \
+    libOmxAacEnc \
+    libOmxAmrEnc \
+    libOmxCore \
+    libOmxEvrcEnc \
+    libOmxQcelp13Enc \
+    libOmxVdec \
+    libOmxVenc \
+    libstagefrighthw
 
-# These are the hardware-specific features
+# Overlays
+DEVICE_PACKAGE_OVERLAYS += \
+    $(LOCAL_PATH)/overlay
+
+# Permissions
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
     frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
@@ -83,305 +191,51 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.telephony.cdma.xml:system/etc/permissions/android.hardware.telephony.cdma.xml \
     frameworks/native/data/etc/android.software.midi.xml:system/etc/permissions/android.software.midi.xml
 
-# For GPS
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/sec_config:system/etc/sec_config
-
-# NFC access control + feature files + configuration
-PRODUCT_COPY_FILES += \
-    frameworks/native/data/etc/android.hardware.nfc.xml:system/etc/permissions/android.hardware.nfc.xml \
-    frameworks/native/data/etc/android.hardware.nfc.hce.xml:system/etc/permissions/android.hardware.nfc.hce.xml \
-    $(LOCAL_PATH)/nfc/libnfc-brcm.conf:system/etc/libnfc-brcm.conf \
-    $(LOCAL_PATH)/nfc/libnfc-brcm-20791b05.conf:system/etc/libnfc-brcm-20791b05.conf
-
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/thermal-engine-8974.conf:system/etc/thermal-engine-8974.conf
-
-PRODUCT_AAPT_CONFIG := normal
-PRODUCT_AAPT_PREF_CONFIG := xxhdpi
-
-PRODUCT_CHARACTERISTICS := nosdcard
-
-DEVICE_PACKAGE_OVERLAYS := \
-    $(LOCAL_PATH)/overlay
-
-PRODUCT_PACKAGES := \
-    libwpa_client \
-    hostapd \
-    wpa_supplicant \
-    wpa_supplicant.conf
-
-# Graphics
-PRODUCT_PACKAGES += \
-    copybit.msm8974 \
-    gralloc.msm8974 \
-    hwcomposer.msm8974 \
-    memtrack.msm8974 \
-    liboverlay
-
-PRODUCT_PACKAGES += \
-    libc2dcolorconvert \
-    libdivxdrmdecrypt \
-    libOmxAacEnc \
-    libOmxAmrEnc \
-    libOmxCore \
-    libOmxEvrcEnc \
-    libOmxQcelp13Enc \
-    libOmxVdec \
-    libOmxVenc \
-    libstagefrighthw
-
-# Audio
-PRODUCT_PACKAGES += \
-    audiod \
-    audio_policy.msm8974 \
-    audio.primary.msm8974 \
-    audio.a2dp.default \
-    audio.usb.default \
-    audio.r_submix.default \
-    tinymix
-
-PRODUCT_PROPERTY_OVERRIDES += \
-    media.aac_51_output_enabled=true \
-    ro.qc.sdk.audio.fluencetype=fluence \
-    persist.audio.fluence.voicecall=true \
-    persist.audio.fluence.audiorec=true \
-    audio.offload.buffer.size.kb=32 \
-    audio.offload.gapless.enabled=true \
-    audio.offload.video=true \
-    audio.offload.pcm.16bit.enable=true \
-    audio.offload.pcm.24bit.enable=true\
-    qcom.hw.aac.encoder=true
-
-# Reduce client buffer size for fast audio output tracks
-PRODUCT_PROPERTY_OVERRIDES += \
-     af.fast_track_multiplier=1
-
-# Low latency audio buffer size in frames
-PRODUCT_PROPERTY_OVERRIDES += \
-    audio_hal.period_size=192
-
-# Audio effects
-PRODUCT_PACKAGES += \
-    libqcomvisualizer \
-    libqcomvoiceprocessing \
-    libqcomvoiceprocessingdescriptors \
-    libqcompostprocbundle
-
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/audio_effects.conf:system/vendor/etc/audio_effects.conf \
-    $(LOCAL_PATH)/audio_policy.conf:system/etc/audio_policy.conf \
-    $(LOCAL_PATH)/audio_platform_info.xml:system/etc/audio_platform_info.xml \
-    $(LOCAL_PATH)/mixer_paths.xml:system/etc/mixer_paths.xml
-
-
-# Camera
-PRODUCT_PACKAGES += \
-    libqomx_core \
-    libmmcamera_interface \
-    libmmjpeg_interface \
-    camera.hammerhead \
-    mm-jpeg-interface-test \
-    mm-qcamera-app \
-    Snap
-
-PRODUCT_PACKAGES += \
-    keystore.msm8974
-
+# Power
 PRODUCT_PACKAGES += \
     power.msm8974
 
-# GPS configuration
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/gps.conf:system/etc/gps.conf
+# QCOM HAL
+$(call project-set-path,qcom-display,device/lge/hammerheadcaf/display)
 
-# GPS
+# Ramdisk
 PRODUCT_PACKAGES += \
-    libloc_adapter \
-    libloc_eng \
-    libloc_api_v02 \
-    libloc_ds_api \
-    libloc_core \
-    libizat_core \
-    libgeofence \
-    libgps.utils \
-    gps.msm8974 \
-    flp.msm8974 \
-    liblbs_core \
-    flp.conf
-
-# NFC packages
-PRODUCT_PACKAGES += \
-    nfc_nci.bcm2079x.default \
-    NfcNci \
-    Tag
-
-PRODUCT_PACKAGES += \
-    libion
-
-PRODUCT_PACKAGES += \
-    lights.hammerhead
-
-PRODUCT_PACKAGES += \
-    bdAddrLoader
-
-PRODUCT_PACKAGES += \
-    libtinyxml
-
-# Doze mode
-PRODUCT_PACKAGES += \
-    HammerheadDoze
-
-# Gello
-PRODUCT_PACKAGES += \
-    Gello
+    fstab.hammerhead \
+    init.hammerhead.rc \
+    init.hammerhead.usb.rc \
+    init.hammerhead.power.rc \
+    init.recovery.hammerhead.rc \
+    ueventd.hammerhead.rc
 
 # Recovery
 PRODUCT_PACKAGES += \
     librecovery_updater_hammerhead
 
-# QCOM Perf lib
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.vendor.extension_library=/vendor/lib/libqti-perfd-client.so
-
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.opengles.version=196608
-
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.sf.lcd_density=480
-
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.hwc.mdpcomp.enable=true \
-    persist.mdpcomp_perfhint=50
-
-PRODUCT_PROPERTY_OVERRIDES += \
-    drm.service.enabled=true
-
-# Set sensor streaming rate
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.qti.sensors.max_geomag_rotv=60 \
-    ro.qti.sensors.max_gyro_rate=200 \
-    ro.qti.sensors.max_accel_rate=200 \
-    ro.qti.sensors.max_grav=200 \
-    ro.qti.sensors.max_rotvec=200 \
-    ro.qti.sensors.max_orient=200 \
-    ro.qti.sensors.max_linacc=200 \
-    ro.qti.sensors.max_gamerv_rate=200
-
-# Enable optional sensor types
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.qti.sensors.smd=true \
-    ro.qti.sensors.game_rv=true \
-    ro.qti.sensors.georv=true \
-    ro.qti.sensors.smgr_mag_cal_en=true \
-    ro.qti.sensors.step_detector=true \
-    ro.qti.sensors.step_counter=true \
-    ro.qti.sensors.pick_up=false \
-    ro.qti.sensors.tap=false \
-    ro.qti.sensors.facing=false \
-    ro.qti.sensors.tilt=false \
-    ro.qti.sensors.tilt_detector=true \
-    ro.qti.sensors.amd=false \
-    ro.qti.sensors.rmd=false \
-    ro.qti.sensors.vmd=false \
-    ro.qti.sensors.pedometer=false \
-    ro.qti.sensors.pam=false \
-    ro.qti.sdk.sensors.gestures=false
-
-# Enable some debug messages by default
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.debug.sensors.hal=w \
-    debug.qualcomm.sns.daemon=w \
-    debug.qualcomm.sns.libsensor1=w
-
-# Ril sends only one RIL_UNSOL_CALL_RING, so set call_ring.multiple to false
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.telephony.call_ring.multiple=0
-
-PRODUCT_PROPERTY_OVERRIDES += \
-    wifi.interface=wlan0
-
-# Do not power down SIM card when modem is sent to Low Power Mode.
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.radio.apm_sim_not_pwdn=1
-
-# LTE, CDMA, GSM/WCDMA
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.ril.force_eri_from_xml=true \
-    ro.telephony.default_network=10 \
-    telephony.lteOnCdmaDevice=1 \
-    persist.radio.mode_pref_nv10=1
-
-# update 1x signal strength after 2s
-PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-    persist.radio.snapshot_enabled=1 \
-    persist.radio.snapshot_timer=2
-
-PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-    persist.radio.use_cc_names=true
-
-# If data_no_toggle is 1 then active and dormancy enable at all times.
-# If data_no_toggle is 0 there are no reports if the screen is off.
-# Leaving this property unset defaults to '0'
-# Due to RIL changes, setting this to 1 now enables toggling of limited
-# system indications and does not impact data state changes.
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.radio.data_no_toggle=1
-
-# Setup custom emergency number list based on the MCC. This is needed by RIL
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.radio.custom_ecc=1
-
-# Request modem to send PLMN name always irrespective
-# of display condition in EFSPN.
-# RIL uses this property.
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.radio.always_send_plmn=true
-
-PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-    rild.libpath=/system/lib/libril-qc-qmi-1.so
-
-# Allow tethering without provisioning app
-PRODUCT_PROPERTY_OVERRIDES += \
-    net.tethering.noprovisioning=true
-
-# Camera configuration
-PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-    camera.disable_zsl_mode=1 \
-    media.stagefright.legacyencoder=true \
-    media.stagefright.less-secure=true
-
-# Input resampling configuration
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.input.noresample=1
-
-PRODUCT_PROPERTY_OVERRIDES += \
-    dalvik.vm.dex2oat-swap=false \
-    dalvik.vm.heapminfree=2m
-
-# Storage
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.sys.sdcardfs=true
-
-# Modem debugger
-ifneq (,$(filter userdebug eng, $(TARGET_BUILD_VARIANT)))
+# RIL
 PRODUCT_PACKAGES += \
-    QXDMLogger
+    librmnetctl \
+    libxml2 \
+    libprotobuf-cpp-full
+
+# Sensors
+PRODUCT_PACKAGES += \
+    sensors.msm8974
+
+# Thermal
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/thermal-engine-8974.conf:system/etc/thermal-engine-8974.conf
+
+# Wifi
+PRODUCT_PACKAGES += \
+    libwpa_client \
+    hostapd \
+    wpa_supplicant \
+    wpa_supplicant.conf
 
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/init.hammerhead.diag.rc.userdebug:root/init.hammerhead.diag.rc
-else
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/init.hammerhead.diag.rc.user:root/init.hammerhead.diag.rc
-endif
-
-# QCOM display HAL
-$(call project-set-path,qcom-display,device/lge/hammerheadcaf/display)
-
-# setup dalvik vm configs.
-$(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
-
-# Set HWUI memory limits
-$(call inherit-product, frameworks/native/build/phone-xxhdpi-2048-hwui-memory.mk)
+    $(LOCAL_PATH)/wifi/bcmdhd.cal:system/etc/wifi/bcmdhd.cal
 
 $(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4339/device-bcm.mk)
+
+# Call the proprietary setup
+$(call inherit-product, vendor/lge/hammerheadcaf/hammerheadcaf-vendor.mk)
