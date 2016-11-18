@@ -36,12 +36,8 @@ setup_vendor "$DEVICE" "$VENDOR" "$CM_ROOT"
 # Copyright headers and guards
 write_headers
 
-# The standard blobs
-write_makefiles "${MY_DIR}/proprietary-files-aosp.txt"
-
-if [ "$1" = "adb" ]; then
-    write_makefiles "${MY_DIR}/proprietary-files-qcom.txt"
-fi
+# The blobs
+write_makefiles "${MY_DIR}/proprietary-files.txt"
 
 # Done
 write_footers
