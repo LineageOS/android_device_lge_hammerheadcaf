@@ -52,16 +52,6 @@ fi
 # Initialize the helper
 setup_vendor "$DEVICE" "$VENDOR" "$CM_ROOT"
 
-extract "${MY_DIR}/proprietary-files-aosp.txt" "$SRC"
-
-if [ "$SRC" = "adb" ]; then
-    extract "${MY_DIR}/proprietary-files-qcom.txt" "$SRC"
-else
-    echo ""
-    echo "Make sure you pull additional required QCOM blobs"
-    echo "from a device running CyanogenMod on ${DEVICE}"
-    echo "using adb pull!"
-    echo ""
-fi
+extract "${MY_DIR}/proprietary-files.txt" "$SRC"
 
 "${MY_DIR}/setup-makefiles.sh" "$SRC"
