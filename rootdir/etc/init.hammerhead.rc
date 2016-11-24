@@ -178,10 +178,6 @@ on post-fs-data
     mkdir /data/system/perfd 0770 root system
     chmod 2770 /data/system/perfd
 
-    # Hardware tunables
-    chown system system /sys/devices/virtual/timed_output/vibrator/amp
-    chmod 0664 /sys/devices/virtual/timed_output/vibrator/amp
-
     setprop vold.post_fs_data_done 1
 
 on property:sys.boot_completed=1
