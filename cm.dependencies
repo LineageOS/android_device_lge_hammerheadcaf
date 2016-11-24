@@ -7,5 +7,9 @@
  {
    "repository": "android_device_qcom_common",
    "target_path": "device/qcom/common"
+ },
+ {
+   "repository": "android_packages_resources_doze",
+   "target_path": "packages/resources/doze"
  }
 ]
