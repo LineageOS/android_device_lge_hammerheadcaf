@@ -16,6 +16,11 @@
 /dev/video.*                                                        u:object_r:camera_device:s0
 
 ###################################
+# Dev block nodes
+#
+/dev/block/bootdevice/by-name/metadata          u:object_r:modem_efs_partition_device:s0
+
+###################################
 # System files
 #
 /system/bin/bdAddrLoader                        u:object_r:bluetooth_loader_exec:s0
