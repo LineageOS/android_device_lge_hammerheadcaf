@@ -366,6 +366,15 @@ bool MDPComp::isSupportedForMDPComp(hwc_context_t *ctx, hwc_layer_1_t* layer) {
     return true;
 }
 
+bool MDPComp::isDroppedCachedLayer(int index) {
+    if(mCurrentFrame.isFBComposed[index]
+        && (mCurrentFrame.layerToMDP[index] < 0)
+        && mCurrentFrame.drop[index]) {
+        return true;
+    }
+    return false;
+}
+
 bool MDPComp::isValidDimension(hwc_context_t *ctx, hwc_layer_1_t *layer) {
     const int dpy = HWC_DISPLAY_PRIMARY;
     private_handle_t *hnd = (private_handle_t *)layer->handle;
@@ -692,6 +701,10 @@ bool MDPComp::fullMDPComp(hwc_context_t *ctx, hwc_display_contents_1_t* list) {
             ALOGD_IF(isDebug(), "%s: Unsupported layer in list",__FUNCTION__);
             return false;
         }
+        if(isDroppedCachedLayer(numAppLayers-1)) {
+            reset(ctx);
+            return false;
+        }
     }
 
     mCurrentFrame.fbCount = 0;
@@ -743,6 +756,10 @@ bool MDPComp::fullMDPCompWithPTOR(hwc_context_t *ctx,
         hwc_layer_1_t* layer = &list->hwLayers[i];
         if(not isSupportedForMDPComp(ctx, layer)) {
             ALOGD_IF(isDebug(), "%s: Unsupported layer in list",__FUNCTION__);
+            return false;
+        }
+        if(isDroppedCachedLayer(numAppLayers-1)) {
+            reset(ctx);
             return false;
         }
     }
@@ -976,14 +993,18 @@ bool MDPComp::cacheBasedComp(hwc_context_t *ctx,
 
     //If an MDP marked layer is unsupported cannot do partial MDP Comp
     for(int i = 0; i < numAppLayers; i++) {
+        hwc_layer_1_t* layer = &list->hwLayers[i];
         if(!mCurrentFrame.isFBComposed[i]) {
-            hwc_layer_1_t* layer = &list->hwLayers[i];
             if(not isSupportedForMDPComp(ctx, layer)) {
                 ALOGD_IF(isDebug(), "%s: Unsupported layer in list",
                         __FUNCTION__);
                 reset(ctx);
                 return false;
             }
+        }
+        if(isDroppedCachedLayer(numAppLayers-1)) {
+            reset(ctx);
+            return false;
         }
     }
 
