@@ -25,8 +25,8 @@ dalvik.vm.dex2oat-swap=false
 dalvik.vm.heapminfree=2m
 
 # Display
-persist.hwc.mdpcomp.enable=false
-persist.sys.ui.hw=true
+persist.hwc.mdpcomp.enable=true
+persist.mdpcomp_perfhint=50
 
 # Graphics
 ro.opengles.version=196608
