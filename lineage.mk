@@ -1,5 +1,6 @@
 #
 # Copyright (C) 2016 The CyanogenMod Project
+#           (C) 2017 The LineageOS Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,7 +18,7 @@
 # Inherit from those products. Most specific first.
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
-# Inherit some common CM stuff.
+# Inherit some common LineageOS stuff.
 $(call inherit-product, vendor/cm/config/common_full_phone.mk)
 
 # Inherit device configuration
@@ -25,9 +26,9 @@ $(call inherit-product, device/lge/hammerheadcaf/device.mk)
 
 PRODUCT_RESTRICT_VENDOR_FILES := false
 
-## Device identifier. This must come after all inclusions
+# Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := hammerheadcaf
-PRODUCT_NAME := cm_hammerheadcaf
+PRODUCT_NAME := lineage_hammerheadcaf
 PRODUCT_BRAND := google
 PRODUCT_MODEL := Nexus 5 CAF
 PRODUCT_MANUFACTURER := LGE
