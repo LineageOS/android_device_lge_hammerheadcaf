@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa3479d7_6cf35774",
+        "filename": "overlay/frameworks/base/core/res/res/values/config.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 9180
+      },
+      "writtenOn": "2017-01-04T11:50:44Z",
+      "side": 1,
+      "message": "This is already present a few lines below.. The issue the commit addressed was only in hh and not in hhcaf.\n\nPerhaps you can only keep the cleanup part?",
+      "range": {
+        "startLine": 110,
+        "startChar": 3,
+        "endLine": 111,
+        "endChar": 66
+      },
+      "revId": "d1d16a9534483a8a9d46ef448be5b2aa9d84b88d",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
