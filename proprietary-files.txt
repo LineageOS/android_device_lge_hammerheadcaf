@@ -135,7 +135,7 @@ vendor/firmware/widevine.b01
 vendor/firmware/widevine.b02
 vendor/firmware/widevine.b03
 vendor/firmware/widevine.mdt
-vendor/lib/drm/libdrmwvmplugin.so|6cfb61cd247076409a3a4e3f6ddecf24
+vendor/lib/drm/libdrmwvmplugin.so|3bee766222895f524421eb996ca6a08bcf95f19f
 vendor/lib/egl/eglsubAndroid.so|62ce69cf9282b7868f94e704c106b002
 vendor/lib/egl/libEGL_adreno.so|9d8787bb62abe66da0965fb63cec8784
 vendor/lib/egl/libGLESv1_CM_adreno.so|4c9558e89635f72cc5ecf7ae32de3d82
@@ -237,11 +237,11 @@ vendor/lib/libvss_common_iface.so
 vendor/lib/libvss_nv_core.so
 vendor/lib/libvss_nv_idl.so
 vendor/lib/libvss_nv_iface.so
-vendor/lib/libwvdrm_L1.so|a19e8a30943ed66d51f58504673e72c4
-vendor/lib/libwvm.so|dcd816349037aa40f0e5ff9d141c70cc
+vendor/lib/libwvdrm_L1.so|3eaf8ed1cb337608a1ccdb80d2c95804e7aea323
+vendor/lib/libwvm.so|59c4c078f4b897ddac8f665309b7a3f25522f207
 vendor/lib/libWVphoneAPI.so
-vendor/lib/libWVStreamControlAPI_L1.so|74e4a4ba035ed5da9b81cc2cc3929151
-vendor/lib/mediadrm/libwvdrmengine.so|76d0add4f3f259030ef4ffb14dc92a2e
+vendor/lib/libWVStreamControlAPI_L1.so|6b28492ac55b9a3d86993343cf2c8b55240b3420
+vendor/lib/mediadrm/libwvdrmengine.so|301e0ef26cfc3a22efd52ebf4bb095d0a33bc68d
 vendor/lib/soundfx/libqcbassboost.so|e0b2e6b9fe4f4dfbdde32e9eca2430bb
 vendor/lib/soundfx/libqcreverb.so|71d0cf3f517c269c9f6b66f5f12621e8
 vendor/lib/soundfx/libqcvirt.so|c4a2216e9366c18ef161911e71d753e5
