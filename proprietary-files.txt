@@ -237,7 +237,7 @@ vendor/lib/libwvdrm_L1.so|3eaf8ed1cb337608a1ccdb80d2c95804e7aea323
 vendor/lib/libwvm.so|59c4c078f4b897ddac8f665309b7a3f25522f207
 vendor/lib/libWVphoneAPI.so
 vendor/lib/libWVStreamControlAPI_L1.so|6b28492ac55b9a3d86993343cf2c8b55240b3420
-vendor/lib/mediadrm/libwvdrmengine.so|301e0ef26cfc3a22efd52ebf4bb095d0a33bc68d
+vendor/lib/mediadrm/libwvdrmengine.so|6bdcc4d59b07ccbdd7b07a99677406ade3d2e232
 vendor/lib/soundfx/libqcbassboost.so|d2784dec8a1aa7231a177f6e6ed1698d01d501d0
 vendor/lib/soundfx/libqcreverb.so|c0fb339a18e0ea0ccda2848bf5c05dc9ce1dc9db
 vendor/lib/soundfx/libqcvirt.so|1e35efaa20dae01e28908669ad7ec5631ddcc684
