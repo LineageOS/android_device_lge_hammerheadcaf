@@ -132,7 +132,7 @@ int power_hint_override(__attribute__((unused)) struct power_module *module,
         return HINT_HANDLED;
     }
 
-    if (hint == POWER_HINT_LAUNCH_BOOST) {
+    if (hint == POWER_HINT_LAUNCH) {
         int duration = 2000;
         int resources[] = { CPUS_ONLINE_MIN_3,
             0x211, 0x311, 0x411, 0x511 };
