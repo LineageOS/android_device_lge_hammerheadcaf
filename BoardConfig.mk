@@ -136,6 +136,11 @@ TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 BOARD_NO_SECURE_DISCARD := true
 
+# Recovery: TWRP support
+ifeq ($(WITH_TWRP),true)
+-include $(PLATFORM_PATH)/twrp.mk
+endif
+
 # SELinux
 include device/qcom/sepolicy/sepolicy.mk
 
