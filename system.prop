@@ -15,6 +15,9 @@ qcom.hw.aac.encoder=true
 af.fast_track_multiplier=1
 audio_hal.period_size=192
 
+# Bluetooth
+persist.bt.enableAptXHD=true
+
 # Camera
 camera.disable_zsl_mode=1
 media.stagefright.legacyencoder=true
