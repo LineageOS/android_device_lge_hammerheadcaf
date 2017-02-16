@@ -15,6 +15,10 @@
 # limitations under the License.
 #
 
+# aptX
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.bt.enableAptXHD=true
+
 # Audio
 PRODUCT_PACKAGES += \
     audiod \

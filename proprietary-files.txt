@@ -143,6 +143,9 @@ vendor/lib/libacdbrtac.so
 vendor/lib/libadiertac.so
 vendor/lib/libadreno_utils.so|863991d5e167b7c67354812155f8b897e2414536
 vendor/lib/libAKM8963.so
+vendor/lib/libaptX-1.0.0-rel-Android21-ARMv7A.so
+vendor/lib/libaptXHD-1.0.0-rel-Android21-ARMv7A.so
+vendor/lib/libaptXScheduler.so
 vendor/lib/libaudcal.so
 vendor/lib/libbccQTI.so|38688aca2fac8bd95c0d034a82710b60c9be77a7
 vendor/lib/libC2D2.so|e1e2b0bca9298eebcbf0c0937b05bf299e0bcc43
