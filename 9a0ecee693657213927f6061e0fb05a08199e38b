@@ -22,6 +22,23 @@
       "revId": "9a0ecee693657213927f6061e0fb05a08199e38b",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa5d592f_872c194c",
+        "filename": "twrp.mk",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 9180
+      },
+      "writtenOn": "2017-02-17T14:02:13Z",
+      "side": 1,
+      "message": "can you also please remove the blankline here? ;-)",
+      "revId": "9a0ecee693657213927f6061e0fb05a08199e38b",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
     }
   ]
 }
