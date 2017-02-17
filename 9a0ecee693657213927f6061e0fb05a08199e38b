@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa5d592f_870539c4",
+        "filename": "twrp.mk",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 9180
+      },
+      "writtenOn": "2017-02-17T13:47:54Z",
+      "side": 1,
+      "message": "This doesn\u0027t seem to be needed",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 23
+      },
+      "revId": "9a0ecee693657213927f6061e0fb05a08199e38b",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
