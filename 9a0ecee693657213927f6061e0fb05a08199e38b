@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "fa5d592f_67bb65c5",
+        "filename": "BoardConfig.mk",
+        "patchSetId": 4
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 9180
+      },
+      "writtenOn": "2017-02-17T16:17:13Z",
+      "side": 1,
+      "message": "$(PLATFORM_PATH)",
+      "range": {
+        "startLine": 141,
+        "startChar": 9,
+        "endLine": 141,
+        "endChar": 33
+      },
+      "revId": "9a0ecee693657213927f6061e0fb05a08199e38b",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa5d592f_870539c4",
         "filename": "twrp.mk",
         "patchSetId": 4
